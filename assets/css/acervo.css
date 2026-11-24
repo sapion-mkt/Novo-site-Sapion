@@ -1,0 +1,230 @@
+/* ==========================================================================
+   Página Acervo técnico — estilos específicos (Etapa 4)
+   ========================================================================== */
+
+.acervo-topo { margin-top: var(--painel-margem); padding-block: clamp(48px, 5vw, 72px) clamp(40px, 4vw, 56px); }
+.acervo-topo .secao-cabeca { margin-bottom: 0; }
+.acervo-topo h1 { font-size: var(--fs-h1); }
+
+/* ---------- Ferramentas: busca + filtros ---------- */
+.acervo { padding-top: clamp(40px, 5vw, 64px); }
+.acervo__ferramentas { display: grid; gap: var(--s-5); }
+.acervo__busca { position: relative; max-width: 480px; }
+.acervo__busca svg { position: absolute; left: 16px; top: 50%; width: 20px; height: 20px; color: var(--texto-3); transform: translateY(-50%); }
+.acervo__busca input {
+  width: 100%;
+  min-height: 52px;
+  padding: 12px 16px 12px 48px;
+  border: 1.5px solid var(--borda-forte);
+  border-radius: var(--r-pill);
+  font-size: 1rem;
+  color: var(--c-navy);
+  background: var(--c-branco);
+}
+.acervo__busca input:focus { outline: none; border-color: var(--c-azul); box-shadow: 0 0 0 3px rgba(68, 77, 242, 0.18); }
+
+.acervo__filtros { display: flex; flex-wrap: wrap; gap: var(--s-2); }
+html:not(.js) .acervo__ferramentas { display: none; }   /* sem JavaScript, busca e filtros não funcionam: não aparecem */
+
+/* Lista de seleção do tipo: substitui os filtros no celular (criada pelo acervo.js) */
+.acervo__tipo { display: none; }
+.acervo__tipo select {
+  width: 100%;
+  min-height: 48px;
+  padding: 10px 44px 10px 18px;
+  border: 1.5px solid var(--borda-forte);
+  border-radius: var(--r-pill);
+  background: var(--c-branco) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='m6 9 6 6 6-6' fill='none' stroke='%2322256F' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") no-repeat right 16px center / 18px;
+  font-family: var(--f-titulo);
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--c-navy);
+  appearance: none;
+  cursor: pointer;
+}
+.acervo__tipo select:focus-visible { outline: none; border-color: var(--c-azul); box-shadow: 0 0 0 3px rgba(68, 77, 242, 0.18); }
+.filtro {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 9px 16px;
+  border: 1.5px solid var(--borda-forte);
+  border-radius: var(--r-pill);
+  background: var(--c-branco);
+  color: var(--c-navy);
+  font-family: var(--f-titulo);
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color var(--t-base) var(--ease), border-color var(--t-base) var(--ease), color var(--t-base) var(--ease);
+}
+.filtro span { padding: 1px 8px; border-radius: var(--r-pill); background: var(--c-cinza-100); font-size: 0.75rem; font-weight: 600; }
+.filtro:hover { border-color: var(--c-azul); }
+.filtro.is-ativo { background: var(--c-navy); border-color: var(--c-navy); color: var(--c-branco); }
+.filtro.is-ativo span { background: rgba(255, 255, 255, 0.16); }
+
+.acervo__contagem { margin-top: var(--s-6); font-size: var(--fs-pequeno); color: var(--texto-2); }
+.acervo__contagem strong { color: var(--c-navy); }
+
+/* ---------- Cards de documento ---------- */
+.acervo__lista {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(16px, 2vw, 24px);
+  margin-top: var(--s-5);
+  list-style: none;
+}
+.documento {
+  --tom: var(--c-azul);
+  --tom-fundo: var(--c-azul-100);
+  position: relative;               /* o link "Baixar PDF" cobre o card inteiro */
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--borda);
+  border-radius: var(--r-lg);
+  background: var(--c-branco);
+  overflow: hidden;
+  transition: transform var(--t-lento) var(--ease), box-shadow var(--t-lento) var(--ease), border-color var(--t-lento) var(--ease);
+}
+.documento:hover { transform: translateY(-4px); box-shadow: var(--sombra-lg); border-color: var(--borda-forte); }
+.documento:has(.documento__baixar:focus-visible) { outline: 3px solid var(--c-azul); outline-offset: 3px; }
+
+/* Capa real do documento (1ª página do PDF), como uma folha sobre o fundo do tipo */
+.documento__capa {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 236px;
+  padding: var(--s-6) var(--s-5);
+  background: var(--tom-fundo);
+}
+.documento__capa img,
+.documento__folha {
+  max-width: 100%;
+  max-height: 100%;
+  border-radius: 3px;
+  box-shadow: 0 10px 22px -6px rgba(34, 37, 111, 0.28), 0 2px 5px rgba(34, 37, 111, 0.12);
+  transition: transform var(--t-lento) var(--ease);
+}
+.documento__capa img { width: auto; height: 100%; background: var(--c-branco); }
+.documento__capa--larga img { width: 100%; height: auto; }   /* folder deitado */
+.documento:hover .documento__capa img,
+.documento:hover .documento__folha { transform: translateY(-3px) rotate(-1deg); }
+
+/* Sem capa no PDF: folha tipográfica no mesmo formato */
+.documento__folha {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  aspect-ratio: 210 / 297;
+  height: 100%;
+  padding: 14px 12px;
+  background: var(--c-branco);
+}
+.documento__folha span { font-size: 0.6875rem; font-weight: 700; line-height: 1.25; color: var(--tom); }
+.documento__folha strong { font-family: var(--f-titulo); font-size: 1rem; font-weight: 600; line-height: 1.15; color: var(--c-navy); }
+
+.documento__corpo { display: flex; flex-direction: column; gap: var(--s-2); flex: 1; padding: var(--s-5); }
+.documento__titulo { font-size: 1.0625rem; font-weight: 600; line-height: 1.3; text-wrap: balance; }
+.documento__meta { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px; font-size: var(--fs-micro); color: var(--texto-2); }
+.documento__tipo {
+  padding: 2px 9px;
+  border-radius: var(--r-pill);
+  background: var(--tom);
+  color: var(--c-branco);
+  font-size: var(--fs-rotulo);
+  font-weight: 700;
+  line-height: 1.5;
+}
+.documento__baixar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s-2);
+  margin-top: auto;
+  padding-top: var(--s-4);
+  font-family: var(--f-titulo);
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-decoration: none;
+  color: var(--c-azul);
+}
+.documento__baixar::after { content: ""; position: absolute; inset: 0; border-radius: inherit; }   /* área de clique = card */
+.documento__baixar:focus-visible { outline: none; }
+.documento__baixar span { font-family: var(--f-texto); font-size: var(--fs-micro); font-weight: 400; color: var(--texto-3); }
+.documento__baixar::before { content: "↓"; order: 2; margin-left: auto; display: grid; place-items: center; width: 30px; height: 30px; border-radius: 50%; background: var(--c-azul-100); transition: background-color var(--t-base) var(--ease), color var(--t-base) var(--ease); }
+.documento:hover .documento__baixar::before { background: var(--c-azul); color: var(--c-branco); }
+
+/* Tons por tipo, a partir da paleta Sapion (todos com texto branco ≥4,5:1) */
+.documento--pme { --tom: var(--c-navy); --tom-fundo: #E4E6F5; }
+.documento--proposta { --tom: #00805D; --tom-fundo: #D9F5EC; }
+.documento--boletim { --tom: #8A4FE0; --tom-fundo: var(--c-roxo-100); }
+.documento--guia { --tom: #B0570A; --tom-fundo: #FDEBDD; }
+.documento--publicacao { --tom: #0B6E8C; --tom-fundo: #DDF0F5; }
+.documento--institucional { --tom: #5A6078; --tom-fundo: var(--c-cinza-100); }
+
+/* Filtro sem documentos para a busca atual: continua visível, mas apagado */
+.filtro:disabled { opacity: 0.45; cursor: default; }
+.filtro:disabled:hover { border-color: var(--borda-forte); }
+
+/* Busca sem resultado: diz o que foi buscado e oferece um caminho */
+.acervo__vazio {
+  display: grid;
+  justify-items: center;
+  gap: var(--s-3);
+  margin-top: var(--s-6);
+  padding: clamp(32px, 5vw, 56px) clamp(20px, 4vw, 48px);
+  border: 1px solid var(--borda);
+  border-radius: var(--r-lg);
+  background: var(--c-branco);
+  text-align: center;
+}
+.acervo__vazio[hidden] { display: none; }
+.acervo__vazio-titulo { max-width: 32ch; font-size: var(--fs-h4); font-weight: 600; line-height: 1.3; text-wrap: balance; }
+.acervo__vazio-texto { max-width: 52ch; color: var(--texto-2); text-wrap: pretty; }
+.acervo__vazio-acoes { display: flex; flex-wrap: wrap; justify-content: center; gap: var(--s-3); margin-top: var(--s-3); }
+.acervo__vazio-acoes [hidden] { display: none; }
+
+@media (max-width: 1023px) {
+  .acervo__lista { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 639px) {
+  /* Topo mais curto: o primeiro documento aparece na primeira tela */
+  .acervo-topo { padding-block: 32px 28px; }
+  .acervo-topo .texto-lead { font-size: var(--fs-corpo); }
+  .acervo { padding-top: var(--s-6); }
+
+  /* Busca fixa logo abaixo do menu ao rolar a lista; o tipo vira lista de seleção */
+  .acervo__ferramentas { display: contents; }
+  html:not(.js) .acervo__ferramentas { display: none; }
+  .acervo__busca {
+    position: sticky;
+    top: var(--header-h);
+    z-index: 5;
+    max-width: none;
+    margin-inline: calc(-1 * var(--gutter));
+    padding: var(--s-2) var(--gutter);
+    background: var(--c-branco);
+    transition: box-shadow var(--t-base) var(--ease);
+  }
+  .acervo__busca.is-fixa { box-shadow: 0 8px 16px -10px rgba(34, 37, 111, 0.25); }
+  /* Foco pelo teclado: o item focado para abaixo do menu e da busca fixa (68px) */
+  html { scroll-padding-top: calc(var(--header-h) + 76px); }
+  .acervo__busca svg { left: calc(var(--gutter) + 16px); }
+  .js .acervo__filtros { display: none; }
+  .js .acervo__tipo { display: block; margin-top: var(--s-2); }
+  .acervo__contagem { margin-top: var(--s-4); }
+  .acervo__lista { grid-template-columns: 1fr; gap: var(--s-3); }
+  /* Card em linha: capa pequena à esquerda, texto à direita */
+  .documento { display: grid; grid-template-columns: 92px 1fr; }
+  .documento__capa { height: auto; min-height: 100%; padding: var(--s-3); }
+  .documento__capa img { width: 100%; height: auto; }
+  .documento__capa--larga img { height: auto; }
+  .documento__folha { width: 100%; height: auto; padding: 8px 7px; }
+  .documento__folha span { font-size: 0.5625rem; }
+  .documento__folha strong { font-size: 0.75rem; }
+  .documento__corpo { padding: var(--s-4); gap: 6px; }
+  .documento__titulo { font-size: 1rem; }
+  .documento__baixar { padding-top: var(--s-2); }
+}

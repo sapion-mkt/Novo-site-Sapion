@@ -1,0 +1,1857 @@
+/* ==========================================================================
+   Home — estilos específicos de cada dobra.
+   Cada dobra ganha seu bloco aqui à medida que for construída (Etapa 3).
+   Direção visual escolhida (Etapa 2): B, escura — painéis navy arredondados
+   alternando com seções claras.
+   ========================================================================== */
+
+/* ==========================================================================
+   3.1 HERO
+   ========================================================================== */
+
+.hero { padding-top: var(--painel-margem); }
+
+.hero__painel {
+  padding-top: clamp(32px, 4vw, 56px);
+  color: var(--c-branco);
+  background:
+    radial-gradient(60% 70% at 88% 8%, rgba(68, 77, 242, 0.55), transparent 70%),
+    radial-gradient(45% 55% at 0% 100%, rgba(5, 242, 155, 0.10), transparent 70%),
+    var(--c-navy);
+}
+
+/* Símbolo da marca, grande e cortado, ao fundo */
+.hero__decor {
+  position: absolute;
+  z-index: -1;
+  top: -12%;
+  right: -6%;
+  width: clamp(320px, 42vw, 620px);
+  opacity: 0.22;
+  pointer-events: none;
+}
+.hero__decor img { width: 100%; height: auto; }
+
+.hero__grade {
+  display: grid;
+  grid-template-columns: minmax(0, 1.12fr) minmax(0, 1fr);
+  gap: clamp(32px, 5vw, 72px);
+  align-items: center;
+}
+
+.hero h1 {
+  font-size: clamp(2rem, 1.35rem + 2.2vw, 2.875rem); /* 32 → 46 */
+  line-height: 1.12;
+}
+.hero h1 strong { color: var(--c-verde-neon); }
+
+.hero__sub {
+  max-width: 56ch;
+  margin-top: var(--s-6);
+  font-size: var(--fs-lead);
+  line-height: 1.6;
+  color: var(--texto-inverso-2);
+}
+
+.hero__acoes {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--s-4) var(--s-8);
+  margin-top: var(--s-8);
+}
+.hero .link-seta { min-height: 44px; color: var(--c-branco); }   /* área de toque (antes ~26px) */
+.hero .link-seta:hover { color: var(--c-verde-neon); }
+.hero :focus-visible { outline-color: var(--c-verde-neon); }
+
+/* Print da plataforma: sangra para fora do painel no desktop */
+.hero__visual { position: relative; }
+@media (min-width: 1024px) {
+  .hero__visual .mockup { width: calc(100% + clamp(40px, 8vw, 160px)); }
+}
+
+.hero__flutuante { left: clamp(-32px, -2vw, -12px); bottom: -24px; width: max-content; max-width: 340px; }
+
+/* Indicadores */
+.hero__indicadores {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin-top: clamp(40px, 4vw, 56px);
+  padding-block: var(--s-6);
+  border-top: 1px solid var(--borda-escura);
+  list-style: none;
+}
+.hero__indicadores .indicador { padding-inline: var(--s-6); }
+.hero__indicadores .indicador:first-child { padding-left: 0; }
+.hero__indicadores .indicador + .indicador { border-left: 1px solid var(--borda-escura); }
+.hero__indicadores .indicador__numero { font-size: clamp(2rem, 1.5rem + 1.6vw, 2.75rem); color: var(--c-verde-neon); }
+.hero__indicadores .indicador__rotulo { color: var(--texto-inverso-2); }
+
+/* Faixa de brasões (os arquivos têm texto branco: sempre sobre fundo escuro) */
+.hero__redes {
+  padding-block: var(--s-6) var(--s-8);
+  background: rgba(10, 12, 50, 0.35);
+  border-top: 1px solid var(--borda-escura);
+}
+/* Botão para pausar a faixa (WCAG 2.2.2: movimento automático precisa de pausa) */
+.hero__redes-controle { display: flex; justify-content: center; margin-top: var(--s-4); }
+.faixa-pausa {
+  min-height: 32px;
+  padding: 4px 14px;
+  border: 1px solid var(--borda-escura);
+  border-radius: var(--r-pill);
+  background: transparent;
+  color: var(--texto-inverso-2);
+  font: inherit;
+  font-size: var(--fs-micro);
+  font-weight: 600;
+  cursor: pointer;
+  transition: color var(--t-base) var(--ease), border-color var(--t-base) var(--ease);
+}
+.faixa-pausa:hover { color: var(--c-branco); border-color: rgba(255, 255, 255, 0.45); }
+@media (prefers-reduced-motion: reduce) { .hero__redes-controle { display: none; } }
+.hero__redes-titulo {
+  margin-bottom: var(--s-5);
+  color: var(--texto-inverso-2);
+  font-size: var(--fs-micro);
+  font-weight: 700;
+  letter-spacing: var(--ls-sobretitulo);
+  text-align: center;
+  text-transform: uppercase;
+}
+
+/* ---------- Tablet e celular ---------- */
+@media (max-width: 1023px) {
+  .hero__grade { grid-template-columns: 1fr; }
+  .hero__visual { margin-top: var(--s-4); }
+  .hero__decor { top: auto; bottom: 30%; right: -30%; width: 90vw; }
+}
+
+@media (max-width: 639px) {
+  .hero__acoes .btn { width: 100%; }
+  .hero__flutuante { left: 12px; right: 12px; bottom: -36px; width: auto; max-width: none; }
+  .hero__visual { margin-bottom: var(--s-8); }
+
+  .hero__indicadores { grid-template-columns: 1fr; padding-block: var(--s-2) var(--s-6); }
+  .hero__indicadores .indicador {
+    flex-direction: row;
+    align-items: center;
+    gap: var(--s-4);
+    padding: var(--s-4) 0;
+  }
+  .hero__indicadores .indicador + .indicador { border-left: 0; border-top: 1px solid var(--borda-escura); }
+  .hero__indicadores .indicador__numero { flex: 0 0 auto; min-width: 8.5rem; font-size: 1.75rem; white-space: nowrap; }
+  .hero__redes .faixa-logos__lista img { height: 36px; }
+}
+
+/* ==========================================================================
+   3.2 O QUE É A SAPION
+   Definição oficial → A plataforma Sapion (Magister, Summit, Auxia) → reconhecimentos
+   (os 4 pilares saíram na revisão de 23/11/2026: repetiam a dobra da Magister)
+   ========================================================================== */
+
+.sapion__definicao { max-width: 980px; }
+.sapion__definicao h2 {
+  max-width: 24ch;
+  font-size: var(--fs-h2);
+  line-height: var(--lh-titulo);
+  text-wrap: balance;
+}
+.sapion__definicao .texto-lead { max-width: 64ch; margin-top: var(--s-6); }
+
+/* ---------- A plataforma Sapion: suas partes (bloco navy dentro da seção clara) ---------- */
+.composicao {
+  display: grid;
+  grid-template-columns: minmax(0, 0.8fr) minmax(0, 2fr);
+  gap: clamp(28px, 4vw, 56px);
+  align-items: center;
+  margin-top: clamp(40px, 5vw, 64px);
+  padding: clamp(28px, 4vw, 56px);
+  border-radius: var(--r-xl);
+  color: var(--c-branco);
+  background:
+    radial-gradient(60% 90% at 100% 0%, rgba(68, 77, 242, 0.45), transparent 70%),
+    var(--c-navy);
+}
+.composicao h3 { font-size: var(--fs-h3); font-weight: 400; }
+.composicao h3 strong { font-weight: 600; color: var(--c-verde-neon); }
+
+.composicao__partes {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--s-4);
+  list-style: none;
+}
+.marca-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-4);
+  height: 100%;
+  padding: var(--s-6);
+  border: 1px solid var(--borda-escura);
+  border-radius: var(--r-lg);
+  background: rgba(255, 255, 255, 0.03);
+  color: var(--texto-inverso-2);
+  text-decoration: none;
+  transition: border-color var(--t-base) var(--ease), background-color var(--t-base) var(--ease), transform var(--t-lento) var(--ease);
+}
+.marca-card:hover { border-color: rgba(5, 242, 155, 0.6); background: rgba(255, 255, 255, 0.06); color: var(--texto-inverso-2); transform: translateY(-3px); }
+.marca-card:focus-visible { outline-color: var(--c-verde-neon); }
+.marca-card__logo { width: auto; height: 36px; max-width: 100%; object-fit: contain; object-position: left center; }
+.marca-card__logo--alta { height: 48px; margin-block: -6px; }
+.marca-card__logo--larga { height: 30px; margin-block: 3px; }
+.marca-card__texto { font-size: var(--fs-pequeno); line-height: 1.5; }
+.marca-card__link { margin-top: auto; color: var(--c-branco); font-size: var(--fs-pequeno); }
+.marca-card:hover .marca-card__link { color: var(--c-verde-neon); }
+
+/* ---------- Reconhecimentos ---------- */
+.reconhecimentos {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--s-6);
+  margin-top: clamp(40px, 5vw, 64px);
+  padding-top: var(--s-8);
+  border-top: 1px solid var(--borda);
+  list-style: none;
+}
+.reconhecimento { display: flex; gap: var(--s-3); font-size: var(--fs-pequeno); line-height: 1.45; color: var(--texto-2); }
+.reconhecimento strong { display: block; margin-bottom: 2px; font-family: var(--f-titulo); font-weight: 600; color: var(--c-navy); }
+.reconhecimento__icone { flex: none; display: grid; place-items: center; width: 36px; height: 36px; border-radius: var(--r-sm); background: var(--c-azul-100); color: var(--c-azul); }
+.reconhecimento__icone svg { width: 20px; height: 20px; }
+
+@media (max-width: 1023px) {
+  .composicao { grid-template-columns: 1fr; }
+  .reconhecimentos { grid-template-columns: 1fr; gap: var(--s-4); }
+}
+@media (max-width: 639px) {
+  .composicao__partes { grid-template-columns: 1fr; }
+  .reconhecimentos { grid-template-columns: 1fr; }
+}
+
+/* ==========================================================================
+   3.3 O PROBLEMA  (painel navy)
+   Abertura + dado FGV → efeito dominó → [causas | obrigação legal]
+   (a ponte virou faixa clara própria logo depois desta dobra)
+   ========================================================================== */
+
+.problema__topo {
+  display: grid;
+  grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
+  gap: clamp(32px, 5vw, 80px);
+  align-items: center;
+}
+.problema__topo .texto-lead { margin-top: var(--s-6); max-width: 58ch; }
+
+/* Dado em destaque */
+.dado-destaque {
+  margin: 0;
+  padding: clamp(24px, 3vw, 40px);
+  border: 1px solid var(--borda-escura);
+  border-radius: var(--r-lg);
+  background: rgba(255, 255, 255, 0.04);
+}
+.dado-destaque__numero {
+  display: block;
+  font-family: var(--f-titulo);
+  font-size: clamp(4rem, 3rem + 4vw, 6.5rem);
+  font-weight: 600;
+  line-height: 0.95;
+  letter-spacing: -0.04em;
+  color: var(--c-verde-neon);
+}
+.dado-destaque__texto { display: block; margin-top: var(--s-4); font-family: var(--f-titulo); font-size: var(--fs-h4); line-height: 1.35; color: var(--c-branco); }
+.dado-destaque__fonte,
+.causas__fonte { display: block; margin-top: var(--s-5); padding-block: 4px; font-size: var(--fs-micro); line-height: 1.45; color: var(--texto-inverso-2) !important; }
+.dado-destaque__fonte:hover,
+.causas__fonte:hover { color: var(--c-verde-neon) !important; }
+
+/* "O efeito dominó": título normal (os rótulos em caixa-alta saíram no passo 6 da revisão) */
+.problema__rotulo {
+  margin: var(--bloco-gap) 0 var(--s-6);
+  font-size: var(--fs-h3);
+  font-weight: 400;
+  color: var(--c-branco);
+}
+
+/* Efeito dominó: peças ligadas por uma linha */
+.domino {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: var(--s-4);
+  list-style: none;
+}
+.domino::before {
+  content: "";
+  position: absolute;
+  left: 10%;
+  right: 10%;
+  top: 34px;
+  height: 1px;
+  background: var(--borda-escura);
+}
+.domino__peca {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-4);
+  padding: var(--s-5);
+  border-radius: var(--r-md);
+  background: var(--c-azul-100);
+  color: var(--c-navy);
+  font-family: var(--f-titulo);
+  font-weight: 600;
+  line-height: 1.3;
+}
+.domino__n {
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--c-navy);
+  color: var(--c-branco);
+  font-size: 0.8125rem;
+}
+/* Última peça: a consequência para a gestão (laranja da paleta secundária, tom de alerta sóbrio) */
+.domino__peca--final { background: var(--c-laranja-500); }
+
+/* Causas + obrigação legal, lado a lado */
+.contexto {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(32px, 5vw, 80px);
+  margin-top: var(--bloco-gap);
+  padding-top: clamp(32px, 4vw, 48px);
+  border-top: 1px solid var(--borda-escura);
+}
+.contexto__titulo { font-size: var(--fs-h3); font-weight: 400; text-wrap: balance; }
+.contexto__titulo strong { font-weight: 600; color: var(--c-verde-neon); }
+.causas__lista,
+.obrigacao__lista {
+  display: grid;
+  gap: var(--s-5);
+  margin-top: var(--s-8);
+  list-style: none;
+  color: var(--texto-inverso-2);
+  line-height: 1.55;
+}
+.causas__lista li + li,
+.obrigacao__lista li + li { padding-top: var(--s-5); border-top: 1px solid var(--borda-escura); }
+.causas__lista h4 { margin-bottom: var(--s-2); font-size: var(--fs-h4); color: var(--c-branco); }
+.causas__numero { font-family: var(--f-titulo); font-size: 1.25rem; color: var(--c-verde-neon); }
+.obrigacao__lei {
+  display: block;
+  margin-bottom: var(--s-2);
+  padding-left: var(--s-3);
+  border-left: 3px solid var(--c-verde-neon);
+  font-family: var(--f-titulo);
+  font-weight: 600;
+  color: var(--c-branco);
+}
+
+/* ==========================================================================
+   PONTE (faixa clara própria entre O problema e Resultados; revisão de 23/11/2026)
+   De capacitação pontual para jornada contínua: separa os dois painéis navy
+   e faz a virada do problema para a prova.
+   ========================================================================== */
+.secao--ponte { padding-block: clamp(56px, 6vw, 88px); }
+.ponte { max-width: 980px; margin-inline: auto; }
+.ponte__titulo {
+  max-width: 22ch;
+  margin-inline: auto;
+  font-size: var(--fs-h2);
+  font-weight: 400;
+  text-align: center;
+  text-wrap: balance;
+}
+.ponte__titulo strong { font-weight: 600; color: var(--c-azul); }
+.ponte__comparacao {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  gap: var(--s-6);
+  align-items: center;
+  margin-top: clamp(32px, 4vw, 48px);
+}
+.ponte__lado { padding: var(--s-6) var(--s-8); border-radius: var(--r-lg); }
+.ponte__lado h3 { margin-bottom: var(--s-5); font-size: var(--fs-h4); font-weight: 600; }
+.ponte__lado--antes { border: 1.5px dashed var(--c-cinza-300); color: var(--texto-2); }
+.ponte__lado--antes h3 { color: var(--texto-2); }
+.ponte__lado--antes ul { display: grid; gap: var(--s-3); list-style: none; }
+.ponte__lado--antes li { position: relative; padding-left: 30px; text-decoration: line-through; text-decoration-color: var(--c-cinza-400); }
+.ponte__lado--antes li::before {
+  content: "×";
+  position: absolute;
+  left: 0;
+  top: 1px;
+  display: grid;
+  place-items: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--c-cinza-100);
+  color: var(--c-cinza-500);
+  font-size: 0.875rem;
+}
+.ponte__lado--depois { background: var(--c-azul); color: var(--c-branco); box-shadow: 0 16px 32px -12px rgba(34, 37, 111, 0.35); }
+.ponte__lado--depois h3 { color: var(--c-branco); }
+.ponte__lado--depois .lista-check li { color: var(--c-branco); }
+.ponte__lado--depois .lista-check li::before {
+  background-color: rgba(255, 255, 255, 0.18);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23FFFFFF' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 6 9 17l-5-5'/%3E%3C/svg%3E");
+}
+.ponte__seta { font-family: var(--f-titulo); font-size: 1.75rem; color: var(--c-azul); }
+.ponte__fecho {
+  max-width: 60ch;
+  margin: clamp(28px, 3.5vw, 40px) auto 0;
+  text-align: center;
+  font-size: var(--fs-lead);
+  line-height: 1.5;
+  color: var(--texto-2);
+  text-wrap: balance;
+}
+.ponte__fecho strong { color: var(--c-navy); }
+
+@media (max-width: 1023px) {
+  .problema__topo { grid-template-columns: 1fr; }
+  .domino { grid-template-columns: 1fr; gap: var(--s-3); }
+  .domino::before { left: 34px; right: auto; top: 10%; bottom: 10%; width: 1px; height: auto; }
+  .domino__peca { flex-direction: row; align-items: center; }
+  .domino__n { flex: none; }
+  .contexto { grid-template-columns: 1fr; }
+}
+@media (max-width: 639px) {
+  .ponte__comparacao { grid-template-columns: 1fr; }
+  .ponte__seta { justify-self: center; transform: rotate(90deg); }
+  .ponte__lado { padding: var(--s-5) var(--s-6); }
+}
+
+/* ==========================================================================
+   3.4 SAPION MAGISTER
+   Zona com o branding da Magister: painel em degradê céu→lilás, roxo #A260FF,
+   brilho ✦ (forma oficial da marca), Magis, cores/ícones das trilhas,
+   cards bem arredondados com sombra roxa.
+   ========================================================================== */
+
+.magister {
+  background: var(--mg-degrade-ceu);
+  color: var(--c-navy);
+}
+.magister h2 strong { color: var(--mg-roxo-600); font-weight: 600; }   /* roxo-600: contraste ≥3:1 no degradê */
+.magister h3 strong { color: var(--mg-roxo-600); font-weight: 700; }   /* 700: no celular o h3 fica pequeno e precisa contar como texto grande */
+.magister .texto-lead { color: var(--c-cinza-600); }
+.magister :focus-visible { outline-color: var(--mg-roxo); }
+
+/* Brilho ✦ — forma recortada do logo da Magister */
+.brilho {
+  position: absolute;
+  display: block;
+  width: 22px;
+  height: 22px;
+  background: var(--mg-roxo-300);
+  -webkit-mask: url("../img/magister/brilho.svg") center / contain no-repeat;
+  mask: url("../img/magister/brilho.svg") center / contain no-repeat;
+}
+.brilho--p { width: 14px; height: 14px; }
+.brilho--m { width: 26px; height: 26px; }
+.brilho--g { width: 36px; height: 36px; }
+.brilho--amarelo { background: var(--mg-amarelo); }
+.magister__brilhos { position: absolute; inset: 0; pointer-events: none; }
+
+/* Abertura */
+.magister__topo {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(0, 0.9fr);
+  gap: clamp(24px, 4vw, 64px);
+  align-items: center;
+}
+.magister__logo { width: auto; height: clamp(40px, 4vw, 52px); margin-bottom: var(--s-8); }
+.magister__topo h2 { font-size: var(--fs-h2); }
+.magister__topo .texto-lead { margin-top: var(--s-5); max-width: 58ch; }
+
+.jornada {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-2);
+  margin-top: var(--s-8);
+  list-style: none;
+  counter-reset: jornada;
+}
+.jornada li {
+  counter-increment: jornada;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s-2);
+  padding: 8px 16px 8px 8px;
+  border-radius: var(--r-pill);
+  background: var(--c-branco);
+  box-shadow: 0 2px 8px rgba(34, 37, 111, 0.08);
+  font-family: var(--f-titulo);
+  font-size: var(--fs-pequeno);
+  font-weight: 600;
+}
+.jornada li::before {
+  content: counter(jornada);
+  display: grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--mg-roxo-600);
+  color: var(--c-branco);
+  font-size: 0.75rem;
+}
+
+/* Link para o site da Magister: pílula de contorno roxo (secundário — a ação
+   principal da página é "Agendar apresentação") */
+.btn-magister {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: var(--s-8);
+  min-height: 48px;
+  padding: 12px 24px;
+  border: 1.5px solid var(--mg-roxo);
+  border-radius: var(--r-pill);
+  background: rgba(255, 255, 255, 0.55);
+  color: var(--c-navy);
+  font-family: var(--f-titulo);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: transform var(--t-base) var(--ease), background-color var(--t-base) var(--ease), border-color var(--t-base) var(--ease);
+}
+.btn-magister span { color: var(--mg-roxo-600); font-weight: 700; }
+.btn-magister:hover { background: var(--c-branco); border-color: var(--mg-roxo-600); color: var(--c-navy); transform: translateY(-2px); }
+.btn-magister:active { transform: scale(0.97); }
+
+.magister__magis { position: relative; display: grid; place-items: center; }
+.magister__magis .brilho { z-index: 1; }
+.magister__magis img { position: relative; width: min(100%, 360px); height: auto; filter: drop-shadow(0 24px 32px rgba(114, 44, 207, 0.25)); }
+.magister__halo {
+  position: absolute;
+  width: 88%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: var(--mg-degrade-magico);
+  opacity: 0.9;
+}
+
+/* Números */
+.magister__numeros {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--s-4);
+  margin-top: clamp(40px, 5vw, 64px);
+  list-style: none;
+}
+.magister__numeros li {
+  padding: var(--s-5) var(--s-6);
+  border-radius: var(--r-lg);
+  background: rgba(255, 255, 255, 0.7);
+  font-size: var(--fs-pequeno);
+  line-height: 1.4;
+  color: var(--c-cinza-600);
+}
+.magister__numeros strong {
+  display: block;
+  font-family: var(--f-titulo);
+  font-size: clamp(1.75rem, 1.4rem + 1.2vw, 2.25rem);
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  color: var(--mg-roxo-600);
+}
+
+.magister__subtitulo {
+  margin: var(--bloco-gap) 0 var(--s-8);
+  font-size: var(--fs-h3);
+  font-weight: 400;
+}
+
+/* Trilhas */
+.trilhas {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: var(--s-4);
+  list-style: none;
+}
+.trilha {
+  padding: var(--s-6);
+  border: 1px solid var(--mg-roxo-100);
+  border-radius: var(--r-xl);
+  background: var(--c-branco);
+  box-shadow: 0 2px 8px rgba(34, 37, 111, 0.06);
+  transition: transform var(--t-lento) var(--ease), box-shadow var(--t-lento) var(--ease);
+}
+.trilha:hover { transform: translateY(-4px); box-shadow: var(--mg-sombra); }
+.trilha h4 { margin-top: var(--s-5); }
+.trilha p { margin-top: var(--s-2); font-size: var(--fs-pequeno); line-height: 1.5; color: var(--c-cinza-600); }
+.trilha__icone {
+  position: relative;
+  display: block;
+  width: 56px;
+  height: 56px;
+  border-radius: 30%;          /* squircle, como o contêiner do símbolo da Magister */
+  background: var(--trilha);
+}
+.trilha__icone::after {
+  content: "";
+  position: absolute;
+  inset: 12px;
+  background: var(--c-navy);   /* tinta dos ícones da Magister */
+  -webkit-mask: var(--icone) center / contain no-repeat;
+  mask: var(--icone) center / contain no-repeat;
+}
+.trilha--inovacao { --trilha: var(--mg-trilha-inovacao); --icone: url("../img/magister/trilha-inovacao.svg"); }
+.trilha--infancia { --trilha: var(--mg-trilha-infancia); --icone: url("../img/magister/trilha-infancia.svg"); }
+.trilha--skills   { --trilha: var(--mg-trilha-skills);   --icone: url("../img/magister/trilha-skills.svg"); }
+.trilha--inclusao { --trilha: var(--mg-trilha-inclusao); --icone: url("../img/magister/trilha-inclusao.svg"); }
+.trilha--gestao   { --trilha: var(--mg-trilha-gestao);   --icone: url("../img/magister/trilha-gestao.svg"); }
+
+/* Abas: por dentro da plataforma */
+.abas__lista {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-2);
+  padding: 6px;
+  border-radius: var(--r-pill);
+  background: rgba(255, 255, 255, 0.7);
+  width: fit-content;
+  max-width: 100%;
+}
+.abas__botao {
+  padding: 10px 18px;
+  border: 0;
+  border-radius: var(--r-pill);
+  background: transparent;
+  color: var(--c-navy);
+  font-family: var(--f-titulo);
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color var(--t-base) var(--ease), color var(--t-base) var(--ease);
+}
+.abas__botao:hover { background: var(--mg-roxo-50); }
+.abas__botao[aria-selected="true"] { background: var(--mg-roxo-600); color: var(--c-branco); box-shadow: var(--mg-sombra); }
+
+.abas__painel {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.4fr);
+  gap: clamp(24px, 4vw, 56px);
+  align-items: center;
+  margin-top: var(--s-6);
+  padding: clamp(24px, 3.5vw, 48px);
+  border-radius: var(--r-xl);
+  background: var(--c-branco);
+  box-shadow: 0 16px 40px rgba(68, 77, 242, 0.10);
+}
+.abas__painel[hidden] { display: none; }
+/* Sem JavaScript, todos os painéis aparecem empilhados */
+.abas:not(.abas--ativas) .abas__lista { display: none; }
+
+.selo-magister {
+  display: inline-block;
+  margin-bottom: var(--s-4);
+  padding: 4px 12px;
+  border-radius: var(--r-pill);
+  background: var(--mg-roxo-50);
+  color: var(--mg-roxo-600);
+  font-size: var(--fs-micro);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.recurso__texto h4 { font-size: var(--fs-h4); margin-bottom: var(--s-5); }
+.magister .lista-check li::before {
+  background-color: var(--mg-roxo-50);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23A260FF' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 6 9 17l-5-5'/%3E%3C/svg%3E");
+}
+.recurso__citacao {
+  margin: var(--s-6) 0 0;
+  padding-left: var(--s-4);
+  border-left: 3px solid var(--mg-roxo);
+  font-family: var(--f-titulo);
+  font-size: var(--fs-pequeno);
+  font-weight: 500;
+  color: var(--c-navy);
+}
+.recurso__imagem { margin: 0; }
+.mockup--sem-barra { border-radius: var(--r-md); }
+.recurso__legenda {
+  position: absolute;
+  right: 12px;
+  bottom: 10px;
+  padding: 2px 10px;
+  border-radius: var(--r-pill);
+  background: rgba(23, 26, 82, 0.75);
+  color: var(--c-branco);
+  font-size: var(--fs-micro);
+}
+
+/* Especialistas: faixa com o degradê "mágico" da Magister e cards com foto */
+.especialistas {
+  position: relative;
+  margin-top: var(--bloco-gap);
+  padding: clamp(28px, 4vw, 48px);
+  border-radius: var(--r-xl);
+  color: var(--c-branco);
+  background:
+    radial-gradient(70% 90% at 15% 0%, rgba(190, 144, 255, 0.55), transparent 60%),
+    radial-gradient(60% 80% at 100% 100%, rgba(68, 77, 242, 0.65), transparent 60%),
+    linear-gradient(135deg, #5A20A3 0%, #3F1774 55%, #22256F 100%);
+  box-shadow: 0 30px 60px -24px rgba(90, 32, 163, 0.55);
+  overflow: hidden;
+  isolation: isolate;
+}
+.especialistas__cabeca { max-width: 640px; }
+.especialistas h3 { font-size: var(--fs-h3); font-weight: 400; }
+.especialistas h3 strong { color: var(--mg-amarelo); font-weight: 700; }
+.especialistas__cabeca p { margin-top: var(--s-4); color: rgba(255, 255, 255, 0.94); }
+
+.especialistas__lista {
+  --por-linha: 7;                   /* desktop: os 7 numa linha só */
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--s-3);
+  margin-top: clamp(24px, 3vw, 36px);
+  list-style: none;
+}
+.especialista {
+  flex: 0 1 calc((100% - (var(--por-linha) - 1) * var(--s-3)) / var(--por-linha));
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: var(--s-5) var(--s-3) var(--s-4);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: var(--r-xl);
+  background: rgba(255, 255, 255, 0.06);
+  text-align: center;
+  transition: transform var(--t-lento) var(--ease), background-color var(--t-lento) var(--ease), border-color var(--t-lento) var(--ease);
+}
+.especialista:hover { transform: translateY(-4px); background: rgba(255, 255, 255, 0.1); border-color: rgba(190, 144, 255, 0.5); }
+
+/* Foto com anel em degradê lilás → índigo */
+.especialista__foto {
+  position: relative;
+  display: block;
+  width: 84px;
+  height: 84px;
+  padding: 3px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--mg-roxo-300), var(--mg-roxo) 50%, var(--c-azul));
+}
+.especialista__foto img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; border: 3px solid #3F1774; }
+.especialista__foto::after {           /* brilho ✦ no canto da foto */
+  content: "";
+  position: absolute;
+  top: -2px;
+  right: -4px;
+  width: 20px;
+  height: 20px;
+  background: var(--mg-amarelo);
+  -webkit-mask: url("../img/magister/brilho.svg") center / contain no-repeat;
+  mask: url("../img/magister/brilho.svg") center / contain no-repeat;
+}
+
+.especialista__nome { margin-top: var(--s-4); font-size: 1rem; font-weight: 600; color: var(--c-branco); }
+.especialista__area {
+  margin-top: var(--s-2);
+  padding: 3px 8px;
+  border-radius: var(--r-pill);
+  background: rgba(190, 144, 255, 0.2);
+  color: var(--c-branco);
+  font-size: var(--fs-rotulo);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+.especialista__credencial { margin-top: var(--s-2); font-size: var(--fs-micro); line-height: 1.4; color: rgba(255, 255, 255, 0.9); }
+.especialistas :focus-visible { outline-color: var(--mg-amarelo); }
+@media (max-width: 1199px) { .especialistas__lista { --por-linha: 4; } }   /* 4 + 3 centralizados */
+
+@media (max-width: 1023px) {
+  .magister__topo { grid-template-columns: 1fr; }
+  .magister__brilhos { display: none; }   /* no celular/tablet os brilhos ficam só em volta da Magis */
+  .magister__magis { max-width: 320px; margin-inline: auto; }
+  .magister__numeros { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .trilhas { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .trilhas > li:last-child { grid-column: 1 / -1; }
+  .abas__painel { grid-template-columns: 1fr; }
+  .abas__lista { border-radius: var(--r-lg); }
+  .especialistas__lista { --por-linha: 4; }
+}
+@media (max-width: 639px) {
+  .trilhas { grid-template-columns: 1fr; }
+  .abas__lista { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; width: 100%; }
+  .abas__lista::-webkit-scrollbar { display: none; }
+  .abas__botao { flex: none; }
+  .magister__numeros { gap: var(--s-3); }
+  .magister__numeros li { padding: var(--s-4); }
+  .trilha {
+    display: grid;
+    grid-template-columns: 48px minmax(0, 1fr);
+    column-gap: var(--s-4);
+    align-items: center;
+    padding: var(--s-4) var(--s-5);
+  }
+  .trilha__icone { width: 48px; height: 48px; }
+  .trilha__icone::after { inset: 10px; }
+  .trilha h4 { margin-top: 0; }
+  .trilha p { grid-column: 1 / -1; margin-top: var(--s-3); }
+
+  .especialistas { padding: var(--s-6) var(--s-4); }
+  .especialistas__lista { display: grid; grid-template-columns: 1fr; gap: var(--s-2); }
+  .especialista {
+    display: grid;
+    grid-template-columns: 64px minmax(0, 1fr);
+    grid-template-rows: auto auto auto;
+    column-gap: var(--s-4);
+    align-items: center;
+    justify-items: start;
+    min-width: 0;
+    padding: var(--s-3) var(--s-4);
+    border-radius: var(--r-lg);
+    text-align: left;
+  }
+  .especialista__foto { grid-row: 1 / span 3; width: 64px; height: 64px; }
+  .especialista__foto::after { width: 16px; height: 16px; }
+  .especialista__nome { margin-top: 0; }
+  .especialista__area { margin-top: var(--s-1); white-space: normal; }
+  .especialista__credencial { margin-top: var(--s-1); }
+}
+
+/* ==========================================================================
+   3.5 RESULTADOS NO IDEB  (painel navy; dados do pitch, p. 14 e 15)
+   Gráficos: só uma série em destaque (Redes Sapion, verde) contra as médias
+   em cinza; valores sempre escritos em texto branco, nunca na cor da barra.
+   ========================================================================== */
+
+.resultados__topo {
+  display: grid;
+  grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+  gap: clamp(32px, 5vw, 80px);
+  align-items: center;
+}
+.resultados__numero {
+  display: block;
+  font-family: var(--f-titulo);
+  font-size: clamp(4.5rem, 3rem + 6vw, 8rem);
+  font-weight: 700;
+  line-height: 0.9;
+  letter-spacing: -0.05em;
+  color: var(--c-verde-neon);
+}
+.resultados__destaque > p { margin-top: var(--s-5); font-size: var(--fs-lead); line-height: 1.5; color: var(--texto-inverso-2); }
+.resultados__destaque strong { color: var(--c-branco); }
+.resultados__nota {
+  margin-top: var(--s-6) !important;
+  padding: var(--s-4) var(--s-5);
+  border: 1px solid rgba(5, 242, 155, 0.35);
+  border-radius: var(--r-md);
+  background: rgba(5, 242, 155, 0.08);
+  font-size: var(--fs-corpo) !important;
+}
+.resultados__nota strong { color: var(--c-verde-neon) !important; }
+
+/* Comparativo em barras */
+.resultados__graficos { margin: 0; display: grid; gap: var(--s-10); }
+.comparativo__titulo { font-size: var(--fs-h4); font-weight: 600; }
+.comparativo__titulo span {
+  margin-left: var(--s-2);
+  font-family: var(--f-texto);
+  font-size: var(--fs-micro);
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--texto-inverso-2);
+}
+.comparativo__lista { display: grid; gap: var(--s-3); margin-top: var(--s-4); list-style: none; }
+.comparativo__item {
+  display: grid;
+  grid-template-columns: 8.5rem minmax(0, 1fr) 3.5rem;
+  gap: var(--s-4);
+  align-items: center;
+  font-size: var(--fs-pequeno);
+  color: var(--texto-inverso-2);
+}
+.comparativo__trilho { height: 14px; border-radius: 4px; background: rgba(255, 255, 255, 0.06); }
+.comparativo__barra { display: block; height: 100%; border-radius: 4px; background: #8E93C4; }
+.comparativo__valor { font-family: var(--f-titulo); font-size: 1.125rem; font-weight: 600; text-align: right; color: var(--c-branco); font-variant-numeric: tabular-nums; }
+.comparativo__item--sapion { color: var(--c-branco); font-weight: 700; }
+.comparativo__item--sapion .comparativo__barra { background: var(--c-verde-neon); }
+
+.resultados__fonte { margin-top: var(--s-8); font-size: var(--fs-micro); line-height: 1.5; color: var(--texto-inverso-2); opacity: 0.8; }
+
+/* Casos-vitrine */
+.resultados__subtitulo {
+  margin-top: var(--bloco-gap);
+  font-size: var(--fs-h3);
+  font-weight: 400;
+}
+.resultados__subtitulo strong { font-weight: 600; color: var(--c-verde-neon); }
+.resultados__legenda { margin-top: var(--s-2); font-size: var(--fs-pequeno); color: var(--texto-inverso-2); }
+
+.casos {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: var(--s-4);
+  margin-top: var(--s-8);
+  list-style: none;
+}
+.caso {
+  display: flex;
+  flex-direction: column;
+  padding: var(--s-6) var(--s-5);
+  border: 1px solid var(--borda-escura);
+  border-radius: var(--r-lg);
+  background: rgba(255, 255, 255, 0.04);
+}
+.selo-res {
+  align-self: flex-start;
+  padding: 3px 10px;
+  border-radius: var(--r-pill);
+  color: var(--c-navy);
+  font-size: var(--fs-rotulo);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.selo-res--verde { background: var(--c-verde-neon); }
+.selo-res--amarelo { background: var(--c-amarelo-600); }
+.selo-res--azul { background: var(--c-azul-200); }
+
+.caso__cidade { margin-top: var(--s-4); font-size: 1.125rem; font-weight: 600; }
+.caso__cidade span { margin-left: 4px; font-family: var(--f-texto); font-size: var(--fs-micro); font-weight: 700; letter-spacing: 0.08em; color: var(--texto-inverso-2); }
+.caso__notas { display: flex; align-items: baseline; gap: var(--s-2); margin-top: var(--s-5); font-family: var(--f-titulo); }
+.caso__antes { font-size: 1.25rem; color: var(--texto-inverso-2); }
+.caso__seta { color: var(--texto-inverso-2); }
+.caso__notas strong { font-size: clamp(2rem, 1.6rem + 1.2vw, 2.5rem); font-weight: 600; letter-spacing: -0.03em; color: var(--c-branco); }
+.caso__delta { margin-top: var(--s-1); font-size: var(--fs-pequeno); font-weight: 600; color: var(--c-verde-neon); }
+
+.caso__escala { display: grid; gap: 6px; margin-top: auto; padding-top: var(--s-5); }   /* barras alinhadas na base dos cards */
+.caso__linha { display: grid; grid-template-columns: 2.4rem minmax(0, 1fr); align-items: center; gap: var(--s-2); }
+.caso__linha em { font-style: normal; font-size: var(--fs-micro); color: var(--texto-inverso-2); }
+.caso__linha::after { content: none; }
+.caso__barra { display: block; height: 8px; border-radius: 4px; background: var(--c-verde-neon); }
+.caso__barra--antes { background: #8E93C4; }
+.caso__linha { position: relative; }
+.caso__linha > .caso__barra { justify-self: start; }
+
+.caso__finais {
+  margin-top: auto;
+  padding-top: var(--s-5);
+  border-top: 1px solid var(--borda-escura);
+  font-size: var(--fs-pequeno);
+  line-height: 1.45;
+  color: var(--texto-inverso-2);
+}
+.caso__escala + .caso__finais { margin-top: var(--s-5); }
+
+@media (max-width: 1023px) {
+  .resultados__topo { grid-template-columns: 1fr; }
+  .casos { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .casos > li:last-child { grid-column: 1 / -1; }
+}
+@media (max-width: 639px) {
+  .casos { grid-template-columns: 1fr; }
+  .comparativo__item { grid-template-columns: 6.5rem minmax(0, 1fr) 3rem; gap: var(--s-3); }
+  .comparativo__titulo span { display: block; margin: 4px 0 0; }
+}
+
+/* ==========================================================================
+   3.6 PROVA SOCIAL  (painel azul-claro; pitch, p. 16 e 17)
+   Depoimentos de secretários em cards brancos → comentários de professores
+   ========================================================================== */
+
+.depoimentos {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--s-5);
+  list-style: none;
+}
+.depoimento {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  margin: 0;
+  padding: clamp(24px, 3vw, 36px);
+  border: 1px solid var(--borda);
+  border-radius: var(--r-xl);
+  background: var(--c-branco);
+  box-shadow: var(--sombra-md);
+}
+.depoimento::before {               /* aspas grandes da marca */
+  content: "“";
+  position: absolute;
+  top: 6px;
+  right: 24px;
+  font-family: var(--f-titulo);
+  font-size: 7rem;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--c-azul-100);
+  pointer-events: none;
+}
+.depoimento blockquote { position: relative; margin: 0; padding-right: 56px; }
+.depoimento blockquote p { font-size: var(--fs-lead); line-height: 1.55; color: var(--c-navy); }
+.depoimento__autor {
+  display: flex;
+  align-items: center;
+  gap: var(--s-4);
+  margin-top: auto;
+  padding-top: var(--s-6);
+}
+.depoimento__autor { border-top: 1px solid var(--borda); }
+.depoimento blockquote { margin-bottom: var(--s-6); }   /* autor sempre na base do card */
+.depoimento__autor img {
+  flex: none;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  object-fit: cover;
+  box-shadow: 0 0 0 3px var(--c-branco), 0 0 0 5px var(--c-azul);
+}
+.depoimento__autor span { font-size: var(--fs-pequeno); line-height: 1.4; color: var(--texto-2); }
+.depoimento__autor strong { display: block; font-family: var(--f-titulo); font-size: 1rem; font-weight: 600; color: var(--c-navy); }
+
+/* Professores falam por si */
+.professores {
+  display: grid;
+  grid-template-columns: minmax(0, 0.7fr) minmax(0, 2fr);
+  gap: clamp(24px, 4vw, 56px);
+  align-items: start;
+  margin-top: var(--bloco-gap);
+}
+.professores h3 { font-size: var(--fs-h3); font-weight: 400; }
+.professores h3 strong { font-weight: 600; color: var(--c-azul); }
+
+.comentarios {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));   /* 3 comentários (o 4º saiu na revisão de 23/11/2026) */
+  gap: var(--s-8) var(--s-4);
+  align-items: start;
+  padding-top: 12px;          /* espaço para o selo que sai do topo do card */
+  list-style: none;
+}
+.comentario {
+  position: relative;
+  padding: var(--s-8) var(--s-5) var(--s-5);
+  border: 1px solid var(--borda);
+  border-radius: var(--r-lg);
+  background: var(--c-branco);
+  box-shadow: var(--sombra-sm);
+}
+.comentario:nth-child(odd) { transform: rotate(-0.6deg); }
+.comentario:nth-child(even) { transform: rotate(0.6deg); }
+.comentario p { font-size: var(--fs-corpo); line-height: 1.55; color: var(--c-navy); }
+.comentario__origem {
+  position: absolute;
+  top: -12px;
+  left: var(--s-5);
+  padding: 4px 12px;
+  border-radius: var(--r-pill);
+  color: var(--c-branco);
+  font-family: var(--f-titulo);
+  font-size: var(--fs-rotulo);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.comentario--club .comentario__origem { background: var(--mg-roxo-600); }
+.comentario--youtube .comentario__origem { background: #D92D20; }
+.comentario__autor { display: block; margin-top: var(--s-3); font-size: var(--fs-micro); font-weight: 700; color: var(--texto-3); }
+
+/* Chamada para agendar logo depois da prova social (fecha o "pico" da página) */
+.prova__cta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s-6) var(--s-10);
+  margin-top: var(--bloco-gap);
+  padding-top: clamp(32px, 4vw, 48px);
+  border-top: 1px solid var(--c-azul-200);
+}
+.prova__cta p {
+  max-width: 24ch;
+  font-family: var(--f-titulo);
+  font-size: var(--fs-h3);
+  font-weight: 400;
+  line-height: 1.25;
+  letter-spacing: var(--ls-titulo);
+  color: var(--c-navy);
+  text-wrap: balance;
+}
+.prova__cta strong { font-weight: 600; color: var(--c-azul); }
+
+@media (max-width: 1023px) {
+  .depoimentos { grid-template-columns: 1fr; }
+  .professores { grid-template-columns: 1fr; }
+}
+@media (max-width: 639px) {
+  .prova__cta .btn { width: 100%; }
+}
+@media (max-width: 639px) {
+  .comentarios { grid-template-columns: 1fr; }
+  .depoimento::before { font-size: 5rem; right: 16px; }
+  .depoimento blockquote { padding-right: 36px; }
+}
+
+
+/* ==========================================================================
+   3.7 SAPION SUMMIT
+   Design system do Sapion Summit: a marca vive no azul; fundo com a grade em
+   perspectiva (arte oficial, não recriada em CSS); Sora em duas espessuras
+   (300 leve + 700 negrito); vidro com borda fina e luz interna no topo;
+   verde #0CED98 nas ações, amarelo #FFF778 nos destaques; tudo arredondado.
+   ========================================================================== */
+
+.summit {
+  color: var(--c-branco);
+  font-family: var(--f-titulo);
+  font-weight: 300;
+  background: var(--sm-degrade);
+  background-color: var(--sm-azul-800);
+}
+/* arte da grade no topo, dissolvendo no azul (sem linha de corte) */
+.summit::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: -2;
+  height: clamp(620px, 58vw, 920px);
+  background: url("../img/summit/grade-fundo.webp") center top / cover no-repeat;
+  -webkit-mask-image: linear-gradient(180deg, #000 55%, transparent 100%);
+  mask-image: linear-gradient(180deg, #000 55%, transparent 100%);
+}
+/* véu sobre a arte para garantir leitura do título */
+.summit::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(180deg, rgba(15, 36, 141, 0.35) 0%, rgba(10, 40, 189, 0.15) 35%, rgba(10, 40, 189, 0) 60%);
+}
+.summit :focus-visible { outline: 2px solid var(--sm-ceu); outline-offset: 3px; }
+
+/* ---------- Abertura ---------- */
+.summit__abertura { display: grid; justify-items: center; text-align: center; }
+.summit__logo { width: clamp(160px, 16vw, 220px); height: auto; }
+.summit__titulo {
+  max-width: 16ch;
+  margin-top: clamp(20px, 2.5vw, 32px);
+  font-size: clamp(2.25rem, 1.4rem + 2.8vw, 3.5rem);
+  font-weight: 300;
+  line-height: 1.02;
+  letter-spacing: -0.02em;
+}
+.summit__titulo strong { display: block; font-weight: 700; color: var(--sm-amarelo); }
+.summit__sub { max-width: 44ch; margin-top: var(--s-5); font-size: var(--fs-lead); line-height: 1.55; color: var(--sm-texto-2); }
+.summit__trilho {
+  display: inline-flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 4px 14px;
+  margin-top: var(--s-6);
+  padding: 10px 22px;
+  border-radius: var(--r-pill);
+  background: var(--sm-azul-900);
+  box-shadow: inset 0 0 0 1px var(--sm-linha);
+  color: var(--sm-verde);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+.summit__trilho span { color: var(--c-branco); }
+
+/* ---------- Ingresso (card com recortes laterais e picote) ---------- */
+.ingresso {
+  --recorte: 22px;
+  position: relative;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: clamp(20px, 3vw, 40px);
+  max-width: 900px;
+  margin: clamp(40px, 5vw, 64px) auto 0;
+  padding: clamp(20px, 2.5vw, 28px) clamp(28px, 4vw, 48px);
+  border-radius: var(--r-xl);
+  background: var(--sm-degrade-card);
+  box-shadow: var(--sm-sombra-lg), var(--sm-vidro-luz);
+  /* recortes semicirculares nas laterais */
+  -webkit-mask:
+    radial-gradient(circle var(--recorte) at 0 50%, transparent 98%, #000) left / 51% 100% no-repeat,
+    radial-gradient(circle var(--recorte) at 100% 50%, transparent 98%, #000) right / 51% 100% no-repeat;
+  mask:
+    radial-gradient(circle var(--recorte) at 0 50%, transparent 98%, #000) left / 51% 100% no-repeat,
+    radial-gradient(circle var(--recorte) at 100% 50%, transparent 98%, #000) right / 51% 100% no-repeat;
+}
+.ingresso__marca { display: grid; gap: 6px; }
+.ingresso__selo {
+  justify-self: start;
+  padding: 4px 10px;
+  border-radius: var(--r-pill);
+  background: var(--sm-amarelo);
+  color: var(--sm-azul-900);
+  font-size: var(--fs-rotulo);
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+.ingresso__marca strong { font-size: 1.25rem; font-weight: 700; }
+.ingresso__data {
+  display: grid;
+  gap: 2px;
+  padding-inline: clamp(20px, 3vw, 40px);
+  border-left: 2px dashed rgba(255, 255, 255, 0.35);
+  border-right: 2px dashed rgba(255, 255, 255, 0.35);
+}
+.ingresso__data time { font-size: clamp(1.75rem, 1.2rem + 2vw, 2.75rem); line-height: 1; letter-spacing: -0.02em; }
+.ingresso__data time strong { font-weight: 700; color: var(--sm-verde); }
+.ingresso__data span { font-size: var(--fs-pequeno); color: var(--c-branco); }
+
+.btn-summit {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 48px;
+  padding: 12px 24px;
+  border: 1.5px solid rgba(255, 255, 255, 0.6);
+  border-radius: var(--r-pill);
+  background: transparent;
+  color: var(--c-branco);
+  font-family: var(--f-titulo);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: transform 220ms var(--sm-ease), background-color 220ms var(--sm-ease), border-color 220ms var(--sm-ease);
+}
+.btn-summit span { color: var(--sm-verde); }
+.btn-summit:hover { transform: translateY(-2px); border-color: var(--c-branco); background: rgba(255, 255, 255, 0.12); color: var(--c-branco); }
+.btn-summit:active { transform: scale(0.985); }
+
+/* ---------- Vidro ---------- */
+.vidro {
+  border-radius: var(--r-xl);
+  background: linear-gradient(150deg, rgba(255, 255, 255, 0.16), rgba(255, 255, 255, 0.05));
+  box-shadow: inset 0 0 0 1px var(--sm-linha), var(--sm-vidro-luz), var(--sm-sombra);
+  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(14px);
+}
+
+/* ---------- Grade: fotos + números + galeria ---------- */
+.summit__bento {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  grid-template-rows: repeat(2, clamp(150px, 15vw, 210px)) auto;
+  grid-template-areas:
+    "plateia plateia plateia palco palco"
+    "plateia plateia plateia palco palco"
+    "n1 n2 n3 galeria galeria";
+  gap: var(--s-4);
+  margin-top: var(--bloco-gap);
+}
+.bento-foto { position: relative; margin: 0; border-radius: var(--r-xl); overflow: hidden; box-shadow: var(--sm-sombra); }
+.bento-foto img { width: 100%; height: 100%; object-fit: cover; transition: transform 700ms var(--sm-ease); }
+.bento-foto:hover img { transform: scale(1.03); }
+.bento-foto--plateia { grid-area: plateia; }
+.bento-foto--palco { grid-area: palco; }
+.bento-foto--palco img { object-position: 40% 50%; }
+.summit__bento > .numero-summit:nth-of-type(1) { grid-area: n1; }
+.summit__bento > .numero-summit:nth-of-type(2) { grid-area: n2; }
+.summit__bento > .numero-summit:nth-of-type(3) { grid-area: n3; }
+
+.numero-summit {
+  display: grid;
+  align-content: end;
+  gap: 4px;
+  padding: var(--s-6);
+  font-size: var(--fs-pequeno);
+  color: var(--sm-texto-2);
+}
+.numero-summit strong {
+  font-size: clamp(2rem, 1.4rem + 1.8vw, 2.75rem);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  color: var(--c-branco);
+}
+
+.galeria-card {
+  grid-area: galeria;
+  position: relative;
+  display: grid;
+  align-content: center;
+  gap: var(--s-2);
+  padding: var(--s-6) var(--s-8);
+  overflow: hidden;
+  color: var(--c-branco);
+  text-decoration: none;
+  transition: transform 220ms var(--sm-ease), box-shadow 220ms var(--sm-ease);
+}
+.galeria-card::before {           /* faixa do "toggle" da marca */
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 4px;
+  background: var(--sm-degrade-toggle);
+}
+.galeria-card:hover { transform: translateY(-2px); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.5), var(--sm-vidro-luz), var(--sm-sombra-lg); color: var(--c-branco); }
+.galeria-card__rotulo { font-size: var(--fs-rotulo); font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--sm-verde); }
+.galeria-card__titulo { font-size: clamp(1.375rem, 1.1rem + 1vw, 1.875rem); font-weight: 300; line-height: 1.1; }
+.galeria-card__titulo strong { font-weight: 700; }
+.galeria-card__seta {
+  position: absolute;
+  right: var(--s-8);
+  top: 50%;
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--c-branco);
+  color: var(--sm-azul-800);
+  font-size: 1.25rem;
+  font-weight: 700;
+  transform: translateY(-50%);
+  transition: transform 220ms var(--sm-ease);
+}
+.galeria-card:hover .galeria-card__seta { transform: translate(4px, -50%); }
+
+/* ---------- Tablet e celular ---------- */
+@media (max-width: 1023px) {
+  .summit__bento {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-rows: clamp(180px, 34vw, 280px) clamp(140px, 26vw, 220px) auto auto;
+    grid-template-areas:
+      "plateia plateia plateia"
+      "palco palco palco"
+      "n1 n2 n3"
+      "galeria galeria galeria";
+  }
+}
+@media (max-width: 639px) {
+  .summit::after { height: 760px; }
+  .summit__trilho { font-size: var(--fs-rotulo); letter-spacing: 0.14em; padding: 8px 16px; }
+  .ingresso {
+    grid-template-columns: 1fr;
+    justify-items: center;
+    text-align: center;
+    -webkit-mask: none;
+    mask: none;
+  }
+  .ingresso__marca { justify-items: center; }
+  .ingresso__selo { justify-self: center; }
+  .ingresso__data { padding: var(--s-4) 0; border: 0; border-top: 2px dashed rgba(255, 255, 255, 0.35); border-bottom: 2px dashed rgba(255, 255, 255, 0.35); width: 100%; }
+  .summit__bento {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 220px 160px auto auto auto;
+    grid-template-areas:
+      "plateia plateia"
+      "palco palco"
+      "n1 n2"
+      "n3 n3"
+      "galeria galeria";
+  }
+  .galeria-card { padding: var(--s-6); }
+  .galeria-card__seta { right: var(--s-6); width: 40px; height: 40px; }
+}
+
+
+/* ==========================================================================
+   3.8 AUXIA
+   Visual do site oficial auxiaedu.com.br: creme + tinta quase preta, roxo
+   #3D2C8D nos destaques, Inter, pílulas, cards com raio 28px e sombra roxa,
+   retícula da marca (SVG extraído do manual). O bloco "Redes & gestão" saiu em 23/11/2026.
+   ========================================================================== */
+
+.auxia {
+  color: var(--ax-tinta);
+  font-family: var(--ax-fonte);
+  background: var(--ax-fundo);
+}
+.auxia :focus-visible { outline: 2px solid var(--ax-roxo-2); outline-offset: 3px; }
+
+/* Retícula da marca no canto superior direito */
+.auxia__reticula {
+  position: absolute;
+  z-index: -1;
+  top: -4%;
+  right: -3%;
+  width: clamp(260px, 34vw, 520px);
+  aspect-ratio: 710 / 620;
+  background: var(--ax-roxo-marca);
+  opacity: 0.55;
+  -webkit-mask: url("../img/auxia/padrao-reticula.svg") center / contain no-repeat;
+  mask: url("../img/auxia/padrao-reticula.svg") center / contain no-repeat;
+}
+
+.auxia__grade {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+  gap: clamp(32px, 5vw, 72px);
+  align-items: center;
+}
+
+.auxia__logo { width: clamp(130px, 12vw, 168px); height: auto; }
+.auxia__selo {
+  display: inline-block;
+  margin-top: var(--s-6);
+  padding: 6px 14px;
+  border-radius: var(--r-pill);
+  background: var(--ax-lavanda-suave);
+  color: var(--ax-roxo);
+  font-size: 0.8125rem;
+  font-weight: 500;
+}
+.auxia h2 {
+  margin-top: var(--s-5);
+  font-family: var(--ax-fonte);
+  font-size: clamp(2.125rem, 1.4rem + 2.8vw, 3.75rem);
+  font-weight: 400;
+  line-height: 1.06;
+  letter-spacing: -0.03em;
+  color: var(--ax-tinta);
+}
+.auxia h2 strong { font-weight: 600; color: var(--ax-roxo); }
+.auxia__lead { margin-top: var(--s-5); max-width: 46ch; font-size: 1.125rem; line-height: 1.6; color: var(--ax-tinta-2); }
+
+.auxia__nota { margin-top: var(--s-4); max-width: 50ch; font-size: 0.9375rem; line-height: 1.55; color: var(--ax-apagado); }
+.auxia__acoes { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s-4) var(--s-6); margin-top: var(--s-8); }
+.btn-auxia {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 48px;
+  padding: 12px 24px;
+  border: 1.5px solid var(--ax-tinta);
+  border-radius: var(--r-pill);
+  background: transparent;
+  color: var(--ax-tinta);
+  font-family: var(--ax-fonte);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: transform var(--t-base) var(--ease), background-color var(--t-base) var(--ease), color var(--t-base) var(--ease);
+}
+.btn-auxia:hover { background: var(--ax-roxo); color: var(--ax-fundo); transform: translateY(-2px); }
+.btn-auxia:active { transform: scale(0.97); }
+.auxia__link { color: var(--ax-tinta); font-size: 0.9375rem; font-weight: 500; text-decoration: none; }
+.auxia__link:hover { color: var(--ax-roxo); }
+
+/* Mockup da tela de ferramentas */
+.auxia__mockup { position: relative; padding-bottom: 36px; }
+.ferramentas {
+  padding: var(--s-5);
+  border: 1px solid var(--ax-linha);
+  border-radius: 24px;
+  background: #fff;
+  box-shadow: var(--ax-sombra-lg);
+}
+.ferramentas__barra { display: flex; gap: 6px; }
+.ferramentas__barra span { width: 9px; height: 9px; border-radius: 50%; background: var(--ax-superficie-2); }
+.ferramentas__titulo { margin-top: var(--s-4); font-weight: 600; font-size: 0.9375rem; }
+.ferramentas__filtros { display: flex; flex-wrap: wrap; gap: 6px; margin-top: var(--s-3); }
+.ferramentas__filtros span {
+  padding: 5px 12px;
+  border: 1px solid var(--ax-linha);
+  border-radius: var(--r-pill);
+  font-size: 0.75rem;
+  color: var(--ax-apagado);
+}
+.ferramentas__filtros .is-ativo { background: var(--ax-tinta); border-color: var(--ax-tinta); color: var(--ax-fundo); }
+.ferramentas__lista {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--s-3);
+  margin-top: var(--s-4);
+  list-style: none;
+}
+.ferramentas__lista li {
+  display: grid;
+  grid-template-columns: 32px minmax(0, 1fr);
+  column-gap: var(--s-3);
+  padding: var(--s-3);
+  border: 1px solid var(--ax-linha);
+  border-radius: 14px;
+  background: var(--ax-fundo);
+}
+.ferramentas__lista i { grid-row: span 2; display: grid; place-items: center; width: 32px; height: 32px; border-radius: 10px; background: #fff; font-style: normal; font-size: 1rem; }
+.ferramentas__lista b { font-size: 0.8125rem; font-weight: 600; }
+.ferramentas__lista small { font-size: 0.6875rem; line-height: 1.35; color: var(--ax-apagado); }
+
+.ferramentas__pronto {
+  position: absolute;
+  right: -12px;
+  bottom: 0;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 4px 12px;
+  align-items: center;
+  width: min(280px, 80%);
+  padding: 14px 16px;
+  border: 1px solid var(--ax-linha);
+  border-radius: 18px;
+  background: #fff;
+  box-shadow: var(--ax-sombra-md);
+}
+.ferramentas__check { display: grid; place-items: center; width: 30px; height: 30px; border-radius: 8px; background: var(--ax-roxo-2); color: #fff; font-weight: 700; }
+.ferramentas__pronto b { display: block; font-size: 0.8125rem; font-weight: 600; }
+.ferramentas__pronto small { font-size: 0.6875rem; color: var(--ax-apagado); }
+.ferramentas__linhas { grid-column: 1 / -1; display: grid; gap: 5px; margin-top: 6px; }
+.ferramentas__linhas i { height: 6px; border-radius: 3px; background: linear-gradient(90deg, var(--ax-roxo-2), var(--ax-lavanda)); }
+.ferramentas__linhas i:nth-child(2) { width: 82%; }
+.ferramentas__linhas i:nth-child(3) { width: 64%; }
+
+/* Números */
+.auxia__numeros {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));   /* 3 números: o "+25 ferramentas" saiu (fica só no Magister Labs) */
+  margin-top: var(--bloco-gap);
+  padding-block: var(--s-6);
+  border-block: 1px solid var(--ax-linha);
+  list-style: none;
+  font-size: 0.875rem;
+  color: var(--ax-apagado);
+}
+.auxia__numeros li { padding-inline: var(--s-6); }
+.auxia__numeros li + li { border-left: 1px solid var(--ax-linha); }
+.auxia__numeros li:first-child { padding-left: 0; }
+.auxia__numeros strong { display: block; font-size: clamp(1.75rem, 1.3rem + 1.4vw, 2.5rem); font-weight: 600; letter-spacing: -0.03em; color: var(--ax-tinta); }
+
+@media (max-width: 1023px) {
+  .auxia__grade { grid-template-columns: 1fr; }
+  .auxia__mockup { max-width: 560px; }
+  .auxia__numeros { grid-template-columns: repeat(2, minmax(0, 1fr)); row-gap: var(--s-5); }
+  .auxia__numeros li:nth-child(3) { padding-left: 0; border-left: 0; }
+}
+@media (max-width: 639px) {
+  .ferramentas__lista { grid-template-columns: 1fr; }
+  .ferramentas__lista li:nth-child(n+4) { display: none; }
+  .auxia__mockup { padding-bottom: 72px; }
+  .ferramentas__pronto { right: 0; }
+  .auxia__numeros li { padding-inline: var(--s-4); }
+  .auxia__numeros li:nth-child(odd) { padding-left: 0; }
+}
+
+
+/* ==========================================================================
+   3.9 QUEM ESTÁ POR TRÁS  (seção branca, marca Sapion)
+   Fundador em destaque (card navy com foto de palco) → diretoria
+   → faixa com acervo técnico e imprensa
+   ========================================================================== */
+
+/* Fundador */
+.fundador {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+  border-radius: var(--r-xl);
+  overflow: hidden;
+  color: var(--texto-inverso);
+  background:
+    radial-gradient(60% 80% at 100% 0%, rgba(68, 77, 242, 0.45), transparent 70%),
+    var(--c-navy);
+  box-shadow: var(--sombra-lg);
+}
+.fundador__foto { margin: 0; min-height: 100%; }
+.fundador__foto img { width: 100%; height: 100%; object-fit: cover; object-position: 40% 30%; }
+.fundador__texto { display: flex; flex-direction: column; justify-content: center; gap: var(--s-4); padding: clamp(28px, 4vw, 56px); }
+.fundador .selo { align-self: flex-start; background: rgba(5, 242, 155, 0.14); color: var(--c-verde-neon); }
+.fundador__nome { font-size: var(--fs-h3); font-weight: 600; color: var(--c-branco); }
+.fundador__citacao { margin: 0; padding-left: var(--s-4); border-left: 3px solid var(--c-verde-neon); }
+.fundador__citacao p { font-size: var(--fs-lead); line-height: 1.55; color: var(--texto-inverso-2); }
+.fundador__citacao strong { color: var(--c-branco); }
+.fundador__fatos { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--s-3); margin-top: var(--s-2); list-style: none; }
+.fundador__fatos li {
+  padding: var(--s-3) var(--s-4);
+  border: 1px solid var(--borda-escura);
+  border-radius: var(--r-md);
+  font-size: var(--fs-micro);
+  line-height: 1.4;
+  color: var(--texto-inverso-2);
+}
+.fundador__fatos strong { display: block; font-family: var(--f-titulo); font-size: 1.0625rem; font-weight: 600; color: var(--c-branco); }
+.fundador__redes { display: flex; flex-wrap: wrap; gap: var(--s-2) var(--s-6); font-size: var(--fs-pequeno); }
+.fundador__redes a { display: inline-block; padding-block: 6px; color: var(--c-branco); font-weight: 600; text-decoration: none; }
+.fundador__redes a:hover { color: var(--c-verde-neon); }
+
+/* Diretoria e gestão */
+.equipe__rotulo {
+  margin: var(--bloco-gap) 0 var(--s-6);
+  font-size: var(--fs-h3);
+  font-weight: 400;
+  color: var(--c-navy);
+}
+.equipe__grade { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: clamp(16px, 2.5vw, 28px); list-style: none; }
+.pessoa img {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  border-radius: var(--r-lg);
+  background: var(--c-azul-100);
+  transition: transform var(--t-lento) var(--ease);
+}
+.pessoa:hover img { transform: translateY(-4px); }
+.pessoa__nome { margin-top: var(--s-4); font-size: var(--fs-h4); font-weight: 600; }
+.pessoa__cargo { margin-top: 2px; font-size: var(--fs-pequeno); line-height: 1.4; color: var(--texto-2); }
+
+/* Trajetória */
+.trajetoria {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: var(--s-5);
+  margin-top: var(--bloco-gap);
+}
+.trajetoria__acervo {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--s-4);
+  padding: clamp(28px, 4vw, 44px);
+  border-radius: var(--r-xl);
+  color: var(--texto-inverso-2);
+  background: var(--c-azul);
+}
+.trajetoria__numero { font-family: var(--f-titulo); font-size: clamp(2.5rem, 1.8rem + 2.4vw, 3.5rem); font-weight: 600; line-height: 1; letter-spacing: -0.03em; color: var(--c-branco); }
+.trajetoria__acervo p { max-width: 44ch; font-size: var(--fs-lead); line-height: 1.5; color: rgba(255, 255, 255, 0.88); }
+.trajetoria__acervo .btn { margin-top: var(--s-2); }
+.trajetoria__imprensa {
+  padding: clamp(28px, 4vw, 44px);
+  border: 1px solid var(--borda);
+  border-radius: var(--r-xl);
+  background: var(--c-cinza-50);
+}
+.equipe__rotulo--claro { margin-top: 0; font-size: var(--fs-h4); font-weight: 600; }
+.trajetoria__imprensa ul { display: grid; gap: var(--s-5); list-style: none; }
+.trajetoria__imprensa li { font-family: var(--f-titulo); font-size: 1.125rem; font-weight: 600; line-height: 1.35; color: var(--c-navy); }
+.trajetoria__imprensa li + li { padding-top: var(--s-5); border-top: 1px solid var(--borda); }
+.trajetoria__imprensa small { display: block; margin-top: 4px; font-family: var(--f-texto); font-size: var(--fs-pequeno); font-weight: 400; color: var(--texto-2); }
+.imprensa__veiculo { display: block; margin-bottom: 6px; font-family: var(--f-texto); font-size: var(--fs-micro); font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--texto-3); }
+
+@media (max-width: 1023px) {
+  .fundador { grid-template-columns: 1fr; }
+  .fundador__foto { aspect-ratio: 16 / 10; }
+  .equipe__grade { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .trajetoria { grid-template-columns: 1fr; }
+}
+@media (max-width: 639px) {
+  .fundador__fatos { grid-template-columns: 1fr; }
+  .equipe__grade { gap: var(--s-4); }
+  .pessoa__nome { font-size: 1rem; }
+  .pessoa__cargo { font-size: var(--fs-pequeno); }
+}
+
+
+/* ==========================================================================
+   3.10 CTA FINAL E CONTATO  (painel navy + formulário em cartão branco)
+   ========================================================================== */
+
+/* Desktop: título e 3 caminhos à esquerda, formulário à direita.
+   Celular: título → formulário → 3 caminhos (a ordem do HTML), para o
+   "Agendar apresentação" cair perto dos campos. */
+.contato__grade {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 0.95fr);
+  grid-template-areas:
+    "intro form"
+    "mais  form";
+  grid-template-rows: auto 1fr;
+  column-gap: clamp(32px, 5vw, 80px);
+  align-items: start;
+}
+.contato__intro { grid-area: intro; }
+.contato__mais { grid-area: mais; }
+.contato__grade > .formulario { grid-area: form; }
+.contato__intro .texto-lead { margin-top: var(--s-5); max-width: 46ch; }
+
+/* 3 caminhos para contratar (pitch, p. 46) */
+.contratacao { margin-top: var(--s-10); }
+.contratacao__titulo {
+  font-size: var(--fs-h4);
+  font-weight: 600;
+  color: var(--c-branco);
+}
+.contratacao__lista { display: grid; gap: var(--s-3); margin-top: var(--s-4); list-style: none; counter-reset: caminho; }
+.contratacao__lista li {
+  counter-increment: caminho;
+  position: relative;
+  padding: var(--s-4) var(--s-5) var(--s-4) 60px;
+  border: 1px solid var(--borda-escura);
+  border-radius: var(--r-md);
+  background: rgba(255, 255, 255, 0.04);
+  font-size: var(--fs-pequeno);
+  line-height: 1.5;
+  color: var(--texto-inverso-2);
+}
+.contratacao__lista li::before {
+  content: counter(caminho);
+  position: absolute;
+  left: 18px;
+  top: 16px;
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--c-verde-neon);
+  color: var(--c-navy);
+  font-family: var(--f-titulo);
+  font-size: 0.875rem;
+  font-weight: 700;
+}
+.contratacao__lista strong { display: block; font-family: var(--f-titulo); font-size: 1rem; font-weight: 600; color: var(--c-branco); }
+.contratacao__nota { margin-top: var(--s-3); font-size: var(--fs-pequeno); color: var(--texto-inverso-2); }
+
+.contato__canais { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s-4) var(--s-6); margin-top: var(--s-8); }
+.btn--whatsapp { --btn-bg: #25D366; --btn-bg-hover: #1EBE5A; --btn-cor: #0B3D24; }
+.btn--whatsapp svg { width: 20px; height: 20px; }
+.contato__email { font-size: var(--fs-pequeno); color: var(--texto-inverso-2); }
+.contato__email a { font-weight: 600; }
+
+/* Formulário */
+.formulario {
+  position: relative;
+  padding: clamp(24px, 3.5vw, 40px);
+  border-radius: var(--r-xl);
+  background: var(--c-branco);
+  color: var(--c-navy);
+  box-shadow: 0 30px 60px -20px rgba(5, 8, 40, 0.55);
+}
+.formulario__titulo { font-size: var(--fs-h4); font-weight: 600; color: var(--c-navy); }
+.formulario__intro { margin-top: var(--s-2); font-size: var(--fs-pequeno); color: var(--texto-2); }
+.formulario__dica { margin-bottom: calc(-1 * var(--s-2)); font-size: var(--fs-pequeno); font-weight: 600; color: var(--c-navy); }
+.formulario__form { display: grid; gap: var(--s-4); }
+.formulario__form .btn { margin-top: var(--s-2); }
+.formulario :focus-visible { outline-color: var(--c-azul); }
+.secao--escura .formulario a:not(.btn) { color: var(--c-azul); font-weight: 600; }
+
+.campo { display: grid; gap: 6px; }
+.campo label { font-size: var(--fs-pequeno); font-weight: 600; color: var(--c-navy); }
+.campo input,
+.campo select {
+  width: 100%;
+  min-height: 48px;
+  padding: 10px 14px;
+  border: 1.5px solid var(--borda-forte);
+  border-radius: var(--r-sm);
+  background: var(--c-branco);
+  color: var(--c-navy);
+  font-size: 1rem;
+  transition: border-color var(--t-base) var(--ease), box-shadow var(--t-base) var(--ease);
+}
+.campo select { appearance: none; background: var(--c-branco) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2322256F' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E") right 12px center / 18px no-repeat; padding-right: 40px; }
+.campo input:focus,
+.campo select:focus { outline: none; border-color: var(--c-azul); box-shadow: 0 0 0 3px rgba(68, 77, 242, 0.18); }
+.campo input::placeholder { color: var(--c-cinza-500); opacity: 1; }
+.campo.is-invalido input,
+.campo.is-invalido select { border-color: var(--state-danger); box-shadow: 0 0 0 1px var(--state-danger); }
+.campo__erro { min-height: 0; font-size: var(--fs-micro); font-weight: 600; color: var(--state-danger); }
+.campo__erro:empty { display: none; }
+
+.campo-linha { display: grid; grid-template-columns: minmax(0, 1fr) 96px; gap: var(--s-3); align-items: start; }
+
+.campo--check { grid-template-columns: 22px minmax(0, 1fr); align-items: start; column-gap: var(--s-3); }
+.campo--check input { width: 20px; height: 20px; min-height: 0; margin-top: 2px; padding: 0; accent-color: var(--c-azul); }
+.campo--check label { font-size: var(--fs-pequeno); font-weight: 400; line-height: 1.5; color: var(--texto-2); }
+.campo--check .campo__erro { grid-column: 2; }
+
+.formulario__falha { padding: var(--s-3) var(--s-4); border-radius: var(--r-sm); background: #FDECEC; color: #9B1C22; font-size: var(--fs-pequeno); font-weight: 600; }
+.formulario__sucesso { display: grid; justify-items: center; gap: var(--s-3); padding: var(--s-10) var(--s-4); text-align: center; }
+.formulario__sucesso[hidden] { display: none; }
+.formulario__sucesso-icone { display: grid; place-items: center; width: 64px; height: 64px; border-radius: 50%; background: var(--c-verde-neon); color: var(--c-navy); font-size: 1.75rem; font-weight: 700; }
+.formulario__sucesso h3 { font-size: var(--fs-h3); color: var(--c-navy); }
+.formulario__sucesso p { max-width: 32ch; color: var(--texto-2); }
+
+@media (max-width: 1023px) {
+  .contato__grade { grid-template-columns: 1fr; grid-template-areas: "intro" "form" "mais"; grid-template-rows: auto; }
+  .contato__grade > .formulario { margin-top: var(--s-8); }
+}
+@media (max-width: 639px) {
+  .contato__canais .btn { width: 100%; }
+  .campo-linha { grid-template-columns: minmax(0, 1fr) 84px; }
+}
+
+
+/* ==========================================================================
+   Faixa "Parte da plataforma Sapion"
+   Fecha as dobras de Magister, Summit e Auxia sempre do mesmo jeito, com a
+   tipografia e as cores da Sapion (não as da sub-marca): amarra as três
+   partes à mesma plataforma, deixa pular entre elas e repete a ação principal.
+   ========================================================================== */
+.plataforma-faixa {
+  --pf-texto: var(--c-navy);
+  --pf-linha: rgba(34, 37, 111, 0.18);
+  --pf-atual-fundo: var(--c-navy);
+  --pf-atual-texto: var(--c-branco);
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--s-4) var(--s-8);
+  margin-top: var(--bloco-gap);
+  padding-top: clamp(24px, 3vw, 32px);
+  border-top: 1px solid var(--pf-linha);
+  font-family: var(--f-titulo);
+  color: var(--pf-texto);
+}
+.plataforma-faixa--escura {
+  --pf-texto: var(--c-branco);
+  --pf-linha: rgba(255, 255, 255, 0.24);
+  --pf-atual-fundo: var(--c-branco);
+  --pf-atual-texto: var(--c-navy);
+}
+.plataforma-faixa__texto {
+  display: flex;
+  align-items: center;
+  gap: var(--s-3);
+  font-size: 1.0625rem;
+  font-weight: 400;
+  line-height: 1.3;
+}
+.plataforma-faixa__texto img { flex: none; width: auto; height: 28px; }
+.plataforma-faixa__texto strong { font-weight: 600; }
+.plataforma-faixa__partes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-2);
+  margin-right: auto;
+  list-style: none;
+}
+.plataforma-faixa__partes a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 40px;
+  padding: 8px 16px;
+  border: 1px solid var(--pf-linha);
+  border-radius: var(--r-pill);
+  color: var(--pf-texto);
+  font-size: 0.875rem;
+  font-weight: 500;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: border-color var(--t-base) var(--ease), background-color var(--t-base) var(--ease);
+}
+.plataforma-faixa__partes a:hover { border-color: currentColor; color: var(--pf-texto); }
+.plataforma-faixa__partes a[aria-current] {
+  border-color: var(--pf-atual-fundo);
+  background: var(--pf-atual-fundo);
+  color: var(--pf-atual-texto);
+  font-weight: 600;
+}
+.plataforma-faixa .btn { flex: none; }
+
+@media (max-width: 639px) {
+  .plataforma-faixa { flex-direction: column; align-items: stretch; }
+  .plataforma-faixa__partes { margin-right: 0; }
+  .plataforma-faixa .btn { width: 100%; }
+}

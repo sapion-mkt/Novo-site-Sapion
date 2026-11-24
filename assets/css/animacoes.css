@@ -1,0 +1,207 @@
+/* ==========================================================================
+   Animações — ar moderno e tecnológico, com equilíbrio (Etapa 6)
+   Tudo depende da classe .js no <html> (posta por um script no <head>):
+   sem JavaScript, o conteúdo aparece normalmente, sem estados escondidos.
+   Quem pede "reduzir movimento" no sistema vê o site sem animações.
+   ========================================================================== */
+
+:root {
+  --anim-ease: cubic-bezier(0.16, 0.84, 0.44, 1);   /* saída suave, "expo" */
+  --anim-dur: 820ms;
+}
+
+/* ---------- Revelar ao rolar (aplicado pelo animacoes.js) ---------- */
+.js .revelar {
+  opacity: 0;
+  transform: translate3d(0, 32px, 0);
+  transition:
+    opacity var(--anim-dur) var(--anim-ease),
+    transform var(--anim-dur) var(--anim-ease);
+  transition-delay: var(--atraso, 0ms);
+  will-change: opacity, transform;
+}
+.js .revelar--esquerda { transform: translate3d(-40px, 0, 0); }
+.js .revelar--direita { transform: translate3d(40px, 0, 0); }
+.js .revelar--zoom { transform: scale(0.94); }
+.js .revelar.is-visivel { opacity: 1; transform: none; }
+
+/* ---------- Barra de progresso de leitura (topo) ---------- */
+.progresso-leitura {
+  position: fixed;
+  z-index: 150;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(90deg, var(--c-azul), var(--c-verde-neon));
+  transform: scaleX(var(--progresso, 0));
+  transform-origin: left;
+  pointer-events: none;
+}
+
+/* ---------- Brilho que atravessa os botões ao passar o mouse ---------- */
+.btn,
+.btn-magister,
+.btn-summit,
+.btn-auxia { position: relative; overflow: hidden; isolation: isolate; }
+.btn::after,
+.btn-magister::after,
+.btn-summit::after,
+.btn-auxia::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  background: linear-gradient(110deg, transparent 30%, rgba(255, 255, 255, 0.45) 50%, transparent 70%);
+  transform: translateX(-120%);
+  transition: transform 700ms var(--anim-ease);
+}
+.btn:hover::after,
+.btn-magister:hover::after,
+.btn-summit:hover::after,
+.btn-auxia:hover::after { transform: translateX(120%); }
+
+/* ---------- Luz que segue o cursor nos painéis escuros ---------- */
+.holofote { position: relative; isolation: isolate; }
+.holofote::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  background: radial-gradient(520px circle at var(--mx, 50%) var(--my, 50%), rgba(255, 255, 255, 0.07), transparent 60%);
+  opacity: 0;
+  transition: opacity 400ms ease;
+  pointer-events: none;
+}
+.holofote:hover::before { opacity: 1; }
+
+/* ==========================================================================
+   HERO
+   ========================================================================== */
+
+/* Aurora: manchas de luz azul e verde se movendo devagar atrás do conteúdo */
+.hero__painel::after {
+  content: "";
+  position: absolute;
+  z-index: -2;
+  inset: -20%;
+  background:
+    radial-gradient(28% 34% at 20% 30%, rgba(68, 77, 242, 0.55), transparent 70%),
+    radial-gradient(22% 28% at 80% 70%, rgba(5, 242, 155, 0.18), transparent 70%),
+    radial-gradient(30% 30% at 65% 15%, rgba(162, 96, 255, 0.28), transparent 70%);
+  filter: blur(20px);
+  animation: aurora 22s ease-in-out infinite alternate;
+  pointer-events: none;
+}
+@keyframes aurora {
+  0%   { transform: translate3d(0, 0, 0) rotate(0deg) scale(1); }
+  50%  { transform: translate3d(4%, -3%, 0) rotate(8deg) scale(1.06); }
+  100% { transform: translate3d(-3%, 4%, 0) rotate(-6deg) scale(1.02); }
+}
+
+/* Grade de pontos "tecnológica", que some nas bordas */
+.hero__grade::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: -40px -10vw;
+  background-image: radial-gradient(rgba(255, 255, 255, 0.16) 1px, transparent 1.4px);
+  background-size: 26px 26px;
+  -webkit-mask-image: radial-gradient(60% 70% at 70% 40%, #000 0%, transparent 75%);
+  mask-image: radial-gradient(60% 70% at 70% 40%, #000 0%, transparent 75%);
+  pointer-events: none;
+}
+.hero__grade { position: relative; }
+
+/* Entrada do hero ao carregar a página */
+.js .hero__texto > * { animation: subir 1s var(--anim-ease) both; }
+.js .hero__texto > *:nth-child(1) { animation-delay: 80ms; }
+.js .hero__texto > *:nth-child(2) { animation-delay: 220ms; }
+.js .hero__texto > *:nth-child(3) { animation-delay: 360ms; }
+/* O título principal aparece de imediato (leitura e LCP); só o resto entra em sequência */
+.js .hero__texto > h1 { animation: none; }
+.js .hero__visual .mockup { animation: entrar-mockup 1.2s var(--anim-ease) 300ms both; }
+.js .hero__flutuante { animation: estalar 900ms var(--anim-ease) 1000ms both; }
+.js .hero__indicadores .indicador { animation: subir 900ms var(--anim-ease) both; }
+.js .hero__indicadores .indicador:nth-child(1) { animation-delay: 650ms; }
+.js .hero__indicadores .indicador:nth-child(2) { animation-delay: 780ms; }
+.js .hero__indicadores .indicador:nth-child(3) { animation-delay: 910ms; }
+.js .hero__redes { animation: aparecer 1s ease 1.1s both; }
+
+@keyframes subir { from { opacity: 0; transform: translate3d(0, 28px, 0); } to { opacity: 1; transform: none; } }
+@keyframes aparecer { from { opacity: 0; } to { opacity: 1; } }
+@keyframes entrar-mockup {
+  from { opacity: 0; transform: perspective(1400px) translate3d(60px, 30px, 0) rotateY(-14deg) rotateX(6deg); }
+  to   { opacity: 1; transform: perspective(1400px) rotateY(var(--ry, 0deg)) rotateX(var(--rx, 0deg)); }
+}
+@keyframes estalar {
+  0%   { opacity: 0; transform: translate3d(0, 20px, 0) scale(0.85); }
+  70%  { opacity: 1; transform: translate3d(0, -4px, 0) scale(1.02); }
+  100% { opacity: 1; transform: none; }
+}
+
+/* O print acompanha o mouse em leve 3D (variáveis --rx/--ry vindas do JS) */
+.hero__visual .mockup { transform: perspective(1400px) rotateY(var(--ry, 0deg)) rotateX(var(--rx, 0deg)); transition: transform 600ms var(--anim-ease); }
+/* Flutuar: usado só pela Magis (no hero, o cartão "100%" fica parado depois de entrar) */
+@keyframes flutuar { 0%, 100% { transform: translate3d(0, 0, 0); } 50% { transform: translate3d(0, -10px, 0); } }
+
+/* ==========================================================================
+   DOBRAS
+   ========================================================================== */
+
+/* Trilhas: ícone gira de leve ao passar o mouse */
+.trilha__icone { transition: transform 500ms var(--anim-ease); }
+.trilha:hover .trilha__icone { transform: rotate(-8deg) scale(1.08); }
+
+/* Efeito dominó: as peças "caem" em sequência */
+.js .domino__peca.revelar { transform: rotate(-14deg) translate3d(-10px, -24px, 0); transform-origin: 0% 100%; }
+.js .domino__peca.revelar.is-visivel { transform: none; }
+.domino__peca--final.is-visivel { animation: alerta 2.4s ease-in-out 1.4s infinite; }
+@keyframes alerta {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(255, 157, 114, 0); }
+  50% { box-shadow: 0 0 0 8px rgba(255, 157, 114, 0.25); }
+}
+
+
+/* Barras dos gráficos crescem quando aparecem */
+.js .comparativo__barra,
+.js .caso__barra { transform: scaleX(0); transform-origin: left; transition: transform 1.4s var(--anim-ease); }
+.js .is-visivel .comparativo__barra,
+.js .is-visivel .caso__barra { transform: none; }
+.js .is-visivel .comparativo__item:nth-child(2) .comparativo__barra { transition-delay: 150ms; }
+.js .is-visivel .comparativo__item:nth-child(3) .comparativo__barra { transition-delay: 300ms; }
+.js .is-visivel .caso__linha:nth-child(2) .caso__barra { transition-delay: 250ms; }
+
+/* Magister: só a Magis flutua (uma animação contínua por dobra; revisão de 23/11/2026) */
+.magister__magis img { animation: flutuar 5.5s ease-in-out infinite; }
+
+/* Summit: arte da grade "respira" e o ingresso ganha um reflexo */
+.summit::after { animation: respirar-grade 18s ease-in-out infinite alternate; }
+@keyframes respirar-grade { from { transform: scale(1); } to { transform: scale(1.06) translateY(-1%); } }
+.ingresso::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(105deg, transparent 35%, rgba(255, 255, 255, 0.28) 50%, transparent 65%);
+  transform: translateX(-100%);
+  pointer-events: none;
+}
+.ingresso.is-visivel::after { animation: reflexo 3s ease-in-out 600ms 1 both; }
+@keyframes reflexo { 0% { transform: translateX(-100%); } 35%, 100% { transform: translateX(100%); } }
+
+/* Auxia: "Materiais prontos" carregando em loop */
+.ferramentas__linhas i { transform-origin: left; animation: carregar 3.6s var(--anim-ease) infinite; }
+.ferramentas__linhas i:nth-child(2) { animation-delay: 250ms; }
+.ferramentas__linhas i:nth-child(3) { animation-delay: 500ms; }
+@keyframes carregar { 0% { transform: scaleX(0); } 45%, 85% { transform: scaleX(1); } 100% { transform: scaleX(1); opacity: 0.4; } }
+.ferramentas__check { animation: estalar 900ms var(--anim-ease) both; }
+
+
+/* ---------- Movimento reduzido: tudo parado e visível ---------- */
+@media (prefers-reduced-motion: reduce) {
+  .js .revelar { opacity: 1; transform: none; transition: none; }
+  .js .comparativo__barra, .js .caso__barra { transform: none; transition: none; }
+  .hero__painel::after, .ingresso::after, .progresso-leitura { animation: none; }
+  .progresso-leitura { display: none; }
+  *, *::before, *::after { animation: none !important; }
+}

@@ -1,0 +1,292 @@
+/* ==========================================================================
+   Layout — cabeçalho, menu, seções e rodapé (compartilhado pelas 2 páginas)
+   ========================================================================== */
+
+/* ---------- Cabeçalho ---------- */
+.cabecalho {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--c-branco);
+  border-bottom: 1px solid transparent;
+  transition: border-color var(--t-base) var(--ease), box-shadow var(--t-base) var(--ease);
+}
+.cabecalho.is-rolado {
+  border-bottom-color: var(--borda);
+  box-shadow: 0 6px 20px rgba(34, 37, 111, 0.06);
+}
+
+.cabecalho__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s-6);
+  height: var(--header-h);
+}
+
+.cabecalho__logo { display: inline-flex; flex: none; }
+.cabecalho__logo img { width: auto; height: 30px; }
+
+.menu { display: flex; align-items: center; gap: var(--s-6); }
+.menu__lista { display: flex; align-items: center; gap: 2px; list-style: none; }
+.menu__link {
+  position: relative;
+  display: block;
+  padding: 8px 10px;
+  border-radius: var(--r-sm);
+  color: var(--c-navy);
+  font-family: var(--f-titulo);
+  font-size: 0.90625rem; /* 14.5px */
+  font-weight: 500;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: color var(--t-base) var(--ease), background-color var(--t-base) var(--ease);
+}
+.menu__link:hover { color: var(--c-azul); background: var(--c-cinza-50); }
+.menu__link.is-ativo { color: var(--c-azul); }
+.menu__link.is-ativo::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  width: 5px; height: 5px;
+  border-radius: 50%;
+  background: var(--c-azul);
+  transform: translateX(-50%);
+}
+.menu__cta { flex: none; }
+
+/* Botão hambúrguer */
+.menu-botao {
+  display: none;
+  place-items: center;
+  width: 44px; height: 44px;
+  margin-right: -8px;
+  padding: 0;
+  border: 0;
+  border-radius: var(--r-sm);
+  background: transparent;
+  color: var(--c-navy);
+  cursor: pointer;
+}
+.menu-botao__barras,
+.menu-botao__barras::before,
+.menu-botao__barras::after {
+  display: block;
+  width: 22px; height: 2px;
+  border-radius: 2px;
+  background: currentColor;
+  transition: transform var(--t-lento) var(--ease), opacity var(--t-base) var(--ease);
+}
+.menu-botao__barras { position: relative; }
+.menu-botao__barras::before,
+.menu-botao__barras::after { content: ""; position: absolute; left: 0; }
+.menu-botao__barras::before { top: -7px; }
+.menu-botao__barras::after { top: 7px; }
+.menu-botao[aria-expanded="true"] .menu-botao__barras { background: transparent; }
+.menu-botao[aria-expanded="true"] .menu-botao__barras::before { transform: translateY(7px) rotate(45deg); }
+.menu-botao[aria-expanded="true"] .menu-botao__barras::after { transform: translateY(-7px) rotate(-45deg); }
+
+/* Desktop estreito (1200–1365px): menu com 7 itens fica mais compacto para caber */
+@media (min-width: 1200px) and (max-width: 1365px) {
+  .menu { gap: var(--s-4); }
+  .menu__link { padding: 8px 7px; font-size: 0.84375rem; } /* 13.5px */
+  .menu__cta { padding-inline: 14px; }
+}
+
+/* ---- Celular e tablet: menu em painel ---- */
+@media (max-width: 1199px) {
+  .cabecalho__logo img { height: 26px; }
+  .menu-botao { display: grid; }
+
+  .menu {
+    position: fixed;
+    inset: var(--header-h) 0 0 0;
+    z-index: 99;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: space-between;
+    gap: var(--s-8);
+    padding: var(--s-6) var(--gutter) calc(var(--s-8) + env(safe-area-inset-bottom));
+    overflow-y: auto;
+    background: var(--c-branco);
+    border-top: 1px solid var(--borda);
+    visibility: hidden;
+    opacity: 0;
+    transform: translateY(-8px);
+    transition: opacity var(--t-lento) var(--ease), transform var(--t-lento) var(--ease), visibility 0s linear var(--t-lento);
+  }
+  .menu.is-aberto {
+    visibility: visible;
+    opacity: 1;
+    transform: none;
+    transition: opacity var(--t-lento) var(--ease), transform var(--t-lento) var(--ease), visibility 0s;
+  }
+
+  .menu__lista { flex-direction: column; align-items: stretch; gap: 0; }
+  .menu__lista li + li { border-top: 1px solid var(--borda); }
+  .menu__link {
+    padding: 16px 4px;
+    border-radius: 0;
+    font-size: 1.25rem;
+    font-weight: 600;
+  }
+  .menu__link:hover { background: transparent; }
+  .menu__link.is-ativo::after { left: auto; right: 4px; top: 50%; bottom: auto; width: 8px; height: 8px; transform: translateY(-50%); }
+  .menu__cta { width: 100%; min-height: 56px; font-size: 1rem; }
+}
+
+/* ---------- Seções ---------- */
+.secao { position: relative; padding-block: var(--secao-py); }
+.secao--suave { background: var(--bg-suave); }
+.secao--cinza { background: var(--c-cinza-50); }
+.secao--escura { background: var(--bg-escuro); color: var(--texto-inverso); }
+.secao--marca { background: var(--bg-marca); color: var(--texto-inverso); }
+/* Seções em painel (direção B): navy com brilho azul discreto, como o hero */
+.secao--escura.painel {
+  background:
+    radial-gradient(50% 60% at 100% 0%, rgba(68, 77, 242, 0.35), transparent 70%),
+    var(--c-navy);
+}
+.painel + .painel { margin-top: var(--painel-margem); }
+main > .painel:last-child { margin-bottom: var(--painel-margem); }
+
+.secao--escura .texto-lead,
+.secao--marca .texto-lead { color: var(--texto-inverso-2); }
+.secao--escura a:not(.btn),
+.secao--marca a:not(.btn) { color: var(--c-branco); }
+
+/* ---------- Rodapé (igual nas duas páginas; marca grande ao pé, ref. Zoom) ---------- */
+.rodape {
+  position: relative;
+  overflow: hidden;
+  padding-block: clamp(56px, 7vw, 96px) 0;
+  background: var(--c-navy-900);
+  color: var(--texto-inverso-2);
+  font-size: var(--fs-pequeno);
+}
+.rodape a { color: var(--c-branco); text-decoration: none; }
+.rodape a:hover { color: var(--c-verde-neon); }
+.rodape .btn { color: var(--c-navy); }
+.rodape .btn:hover { color: var(--c-navy); }
+
+.rodape__grade {
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) repeat(3, minmax(0, 1fr));
+  gap: clamp(32px, 4vw, 56px);
+}
+.rodape__logo img { width: auto; height: 32px; }
+.rodape__marca p { max-width: 30ch; margin: var(--s-5) 0 var(--s-6); line-height: 1.6; }
+.rodape__coluna h2 {
+  margin-bottom: var(--s-4);
+  font-family: var(--f-texto);
+  font-size: var(--fs-micro);
+  font-weight: 700;
+  letter-spacing: var(--ls-sobretitulo);
+  text-transform: uppercase;
+  color: var(--c-verde-neon);
+}
+.rodape__coluna ul { display: grid; gap: var(--s-1); list-style: none; }
+/* Área de toque maior nos links do rodapé (antes ~19px de altura) */
+.rodape__coluna ul a { display: inline-block; padding-block: 6px; }
+.rodape__coluna address { margin-top: var(--s-5); font-style: normal; line-height: 1.6; }
+
+.rodape__base {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: var(--s-3) var(--s-6);
+  margin-top: clamp(40px, 5vw, 64px);
+  padding-top: var(--s-6);
+  border-top: 1px solid var(--borda-escura);
+  font-size: var(--fs-micro);
+}
+.rodape__base p + p { margin-top: 0; }
+.rodape__cookies { padding: 6px 0; border: 0; background: none; color: var(--c-branco); font: inherit; cursor: pointer; }
+.rodape__cookies:hover { color: var(--c-verde-neon); }
+
+/* Assinatura gigante, cortada no pé da página */
+.rodape__assinatura {
+  width: 100%;
+  height: auto;
+  margin: clamp(32px, 4vw, 56px) 0 -3%;
+  opacity: 0.06;
+  pointer-events: none;
+  user-select: none;
+}
+
+@media (max-width: 1023px) {
+  .rodape__grade { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .rodape__marca { grid-column: 1 / -1; }
+}
+@media (max-width: 639px) {
+  .rodape__grade { grid-template-columns: 1fr 1fr; }
+  .rodape__coluna:last-child { grid-column: 1 / -1; }
+}
+
+/* ---------- Aviso de cookies (só aparece quando há medição configurada) ---------- */
+.cookies {
+  position: fixed;
+  z-index: 300;
+  left: var(--s-4);
+  right: var(--s-4);
+  bottom: var(--s-4);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s-4) var(--s-6);
+  max-width: 880px;
+  margin-inline: auto;
+  padding: var(--s-5) var(--s-6);
+  border: 1px solid var(--borda);
+  border-radius: var(--r-lg);
+  background: var(--c-branco);
+  color: var(--c-navy);
+  box-shadow: var(--sombra-lg);
+  font-size: var(--fs-pequeno);
+  line-height: 1.5;
+}
+.cookies p { flex: 1 1 360px; }
+.cookies__acoes { display: flex; gap: var(--s-3); }
+@media (max-width: 639px) { .cookies__acoes { width: 100%; } .cookies__acoes .btn { flex: 1; } }
+
+/* ---------- Botão fixo "Agendar apresentação" (celular e tablet) ----------
+   No celular o botão do topo fica dentro do menu; este botão mantém a ação
+   principal sempre à mão. Fica escondido quando outro botão de agendar está
+   na tela (main.js), embaixo do menu aberto (z-index menor) e quando o aviso de
+   cookies está na tela. */
+.cta-fixo { display: none; }
+
+@media (max-width: 1199px) {
+  .cta-fixo {
+    position: fixed;
+    z-index: 90;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    padding: 0 var(--gutter) calc(var(--s-4) + env(safe-area-inset-bottom));
+    pointer-events: none;
+    transition: transform var(--t-lento) var(--ease-out), opacity var(--t-lento) var(--ease-out), visibility 0s;
+  }
+  .cta-fixo .btn {
+    max-width: 440px;
+    min-height: 52px;
+    box-shadow: 0 10px 28px rgba(5, 11, 61, 0.32), 0 2px 6px rgba(5, 11, 61, 0.18);
+    pointer-events: auto;
+  }
+  .cta-fixo.is-oculto {
+    visibility: hidden;
+    opacity: 0;
+    transform: translateY(calc(100% + var(--s-4)));
+    transition: transform var(--t-lento) var(--ease), opacity var(--t-base) var(--ease), visibility 0s linear var(--t-lento);
+  }
+  body:has(.cookies) .cta-fixo { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cta-fixo,
+  .cta-fixo.is-oculto { transform: none; }
+}

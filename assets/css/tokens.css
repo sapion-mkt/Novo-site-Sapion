@@ -1,0 +1,199 @@
+/* ==========================================================================
+   Sapion Holding — Tokens
+   Cores na HIERARQUIA DO BRIEFING (não na ordem do guia de 2020):
+   1 #444DF2 · 2 #05F29B · 3 #22256F · 4 #00C18C · 5 #DAEBFC · 6 #B6D2F5
+   Secundárias seguem a ordem do guia da marca.
+   ========================================================================== */
+
+@font-face {
+  font-family: "Sora";
+  src: url("../fonts/Sora-VariableFont_wght.ttf") format("truetype-variations"),
+       url("../fonts/Sora-VariableFont_wght.ttf") format("truetype");
+  font-weight: 100 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  /* ---- Primárias (ordem do briefing) ---- */
+  --c-azul: #444DF2;        /* 1 · cor principal da marca */
+  --c-verde-neon: #05F29B;  /* 2 · destaque — NUNCA como texto sobre fundo claro */
+  --c-navy: #22256F;        /* 3 · textos e fundos escuros */
+  --c-verde: #00C18C;       /* 4 · apoio / sucesso */
+  --c-azul-100: #DAEBFC;    /* 5 · fundo claro de seção */
+  --c-azul-200: #B6D2F5;    /* 6 · bordas e detalhes claros */
+
+  /* ---- Secundárias (guia da marca) — só ilustração e destaques ---- */
+  --c-amarelo-600: #FFD014;
+  --c-amarelo-500: #FEDD00;
+  --c-amarelo-200: #FFEE80;
+  --c-roxo-500: #A260FF;
+  --c-roxo-300: #BE90FF;
+  --c-roxo-100: #ECDFFF;
+  --c-laranja-500: #FF9D72;
+  --c-laranja-300: #FDC19B;
+  --c-pessego-200: #F9D5C0;
+
+  /* ---- Sub-marca Sapion Magister (só na dobra 3.4) — "Paleta de cores - Magister" ---- */
+  --mg-roxo: #A260FF;          /* cor principal da Magister */
+  --mg-roxo-600: #8A3FF0;
+  --mg-roxo-300: #BE90FF;
+  --mg-roxo-100: #E7D7FF;
+  --mg-roxo-50: #F4ECFF;
+  --mg-ceu-100: #D6E6FB;
+  --mg-amarelo: #FFD014;
+  --mg-degrade-ceu: linear-gradient(180deg, #D6E6FB 0%, #F4ECFF 100%);
+  --mg-degrade-magico: radial-gradient(circle at 30% 20%, #BE90FF 0%, #A260FF 45%, #444DF2 100%);
+  --mg-sombra: 0 12px 28px rgba(162, 96, 255, 0.28);
+  --mg-trilha-inovacao: #FF8908;
+  --mg-trilha-infancia: #FFED00;
+  --mg-trilha-skills: #6FF783;
+  --mg-trilha-inclusao: #35C1ED;
+  --mg-trilha-gestao: #C4C4C4;
+
+  /* ---- Sub-marca Sapion Summit (só na dobra 3.7) — "Paleta de cores.docx" do Summit ---- */
+  --sm-azul-950: #050B3D;
+  --sm-azul-900: #0F248D;
+  --sm-azul-800: #0A28BD;      /* base da marca */
+  --sm-azul-600: #345BF2;
+  --sm-azul-300: #6F94FD;
+  --sm-verde: #0CED98;         /* ação principal */
+  --sm-amarelo: #FFF778;       /* destaque */
+  --sm-ceu: #85D9FD;           /* anel de foco */
+  --sm-rosa: #F8ADFF;
+  --sm-lilas: #BE8AEB;
+  --sm-violeta: #6949F2;
+  --sm-texto-2: rgba(255, 255, 255, 0.72);
+  --sm-linha: rgba(255, 255, 255, 0.18);
+  --sm-degrade: linear-gradient(135deg, #0F248D 0%, #0A28BD 45%, #345BF2 100%);
+  --sm-degrade-card: linear-gradient(150deg, #5B83F2 0%, #2344FD 70%);
+  --sm-degrade-toggle: linear-gradient(90deg, #F8ADFF 0%, #BE8AEB 40%, #0CED98 100%);
+  --sm-protecao: linear-gradient(180deg, rgba(10, 16, 48, 0) 0%, rgba(10, 16, 48, 0.78) 68%, rgba(10, 16, 48, 0.94) 100%);
+  --sm-vidro-luz: inset 0 1px 0 rgba(255, 255, 255, 0.28);
+  --sm-sombra: 0 12px 32px rgba(5, 11, 61, 0.36);
+  --sm-sombra-lg: 0 28px 64px rgba(5, 11, 61, 0.44);
+  --sm-brilho-verde: 0 0 0 1px rgba(12, 237, 152, 0.5), 0 8px 28px rgba(12, 237, 152, 0.28);
+  --sm-ease: cubic-bezier(0.16, 0.84, 0.44, 1);
+
+  /* ---- Marca Auxia (só na dobra 3.8) — tokens do site oficial auxiaedu.com.br ---- */
+  --ax-fundo: #FAF8F5;
+  --ax-superficie: #F3EFE6;
+  --ax-superficie-2: #ECE6D8;
+  --ax-tinta: #0E0A1F;
+  --ax-tinta-2: #2A2440;
+  --ax-apagado: #6B6480;
+  --ax-linha: #E6E0D2;
+  --ax-roxo: #3D2C8D;          /* primária do site */
+  --ax-roxo-2: #5A44C4;
+  --ax-roxo-marca: #5800CB;    /* roxo do símbolo (manual) */
+  --ax-lavanda: #A78BFA;
+  --ax-lavanda-suave: #DDD2FB;
+  --ax-fonte: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --ax-sombra-md: 0 4px 12px rgba(14, 10, 31, 0.06), 0 12px 40px rgba(61, 44, 141, 0.08);
+  --ax-sombra-lg: 0 24px 80px rgba(61, 44, 141, 0.18);
+
+  /* ---- Neutros (derivados do navy, como no design system) ---- */
+  --c-cinza-50: oklch(98% 0.003 265);
+  --c-cinza-100: oklch(95.5% 0.005 265);
+  --c-cinza-200: oklch(91% 0.008 265);
+  --c-cinza-300: oklch(84% 0.011 265);
+  --c-cinza-400: oklch(70% 0.014 265);
+  --c-cinza-500: oklch(52% 0.016 265);   /* escurecido em 23/11/2026: contraste ≥4,5:1 sobre fundos claros */
+  --c-cinza-600: oklch(45% 0.018 265);
+  --c-cinza-700: oklch(35% 0.02 265);
+  --c-branco: #FFFFFF;
+
+  /* Tons de interação derivados das primárias */
+  --c-azul-hover: #343CD6;
+  --c-verde-neon-hover: #00DB8A;
+  --c-navy-900: #171A52;
+
+  /* ---- Papéis semânticos ---- */
+  --bg-pagina: var(--c-branco);
+  --bg-suave: var(--c-azul-100);
+  --bg-escuro: var(--c-navy);
+  --bg-marca: var(--c-azul);
+
+  --texto: var(--c-navy);
+  --texto-2: var(--c-cinza-600);
+  --texto-3: var(--c-cinza-500);
+  --texto-inverso: var(--c-branco);
+  --texto-inverso-2: rgba(255, 255, 255, 0.78);
+  --link: var(--c-azul);
+
+  --borda: var(--c-cinza-200);
+  --borda-forte: var(--c-cinza-300);
+  --borda-escura: rgba(255, 255, 255, 0.14);
+
+  --foco: var(--c-azul);
+  --state-danger: #C2363B;   /* erro de formulário (borda e mensagem) */
+
+  /* ---- Tipografia ---- */
+  --f-titulo: "Sora", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --f-texto: "Open Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  /* Escala fluida: mínimo no celular (360px) → máximo no desktop (1280px) */
+  --fs-display: clamp(2.25rem, 1.4rem + 3.4vw, 4rem);      /* 36 → 64 */
+  --fs-h1: clamp(2rem, 1.45rem + 2.3vw, 3.25rem);          /* 32 → 52 */
+  --fs-h2: clamp(1.75rem, 1.35rem + 1.7vw, 2.75rem);       /* 28 → 44 */
+  --fs-h3: clamp(1.375rem, 1.2rem + 0.8vw, 1.75rem);       /* 22 → 28 */
+  --fs-h4: clamp(1.125rem, 1.05rem + 0.35vw, 1.3125rem);   /* 18 → 21 */
+  --fs-lead: clamp(1.0625rem, 1rem + 0.35vw, 1.25rem);     /* 17 → 20 */
+  --fs-corpo: 1rem;                                         /* 16 */
+  --fs-pequeno: 0.9375rem;                                  /* 15 (era 14; revisão de legibilidade, 23/11/2026) */
+  --fs-micro: 0.8125rem;                                    /* 13: fontes, metadados, texto legal (era 12) */
+  --fs-rotulo: 0.75rem;                                     /* 12: piso dos selos em caixa-alta */
+  --fs-numero: clamp(2.5rem, 1.8rem + 2.8vw, 4rem);        /* indicadores */
+
+  --lh-titulo: 1.12;
+  --lh-texto: 1.65;
+  --ls-titulo: -0.02em;
+  --ls-sobretitulo: 0.12em;
+
+  /* ---- Espaçamento ---- */
+  --s-1: 4px;
+  --s-2: 8px;
+  --s-3: 12px;
+  --s-4: 16px;
+  --s-5: 20px;
+  --s-6: 24px;
+  --s-8: 32px;
+  --s-10: 40px;
+  --s-12: 48px;
+  --s-16: 64px;
+  --s-20: 80px;
+  --s-24: 96px;
+
+  --secao-py: clamp(56px, 3rem + 4vw, 104px);  /* respiro vertical das dobras (reduzido na revisão de 23/11/2026) */
+  --bloco-gap: clamp(48px, 5vw, 72px);         /* espaço entre blocos dentro de uma dobra */
+  --container: 1200px;
+  --container-estreito: 820px;
+  --gutter: clamp(16px, 4vw, 32px);
+  --painel-margem: clamp(8px, 1.6vw, 24px);     /* respiro do painel arredondado até a borda da tela */
+
+  /* ---- Formas ---- */
+  --r-sm: 8px;
+  --r-md: 12px;
+  --r-lg: 20px;
+  --r-xl: 28px;
+  --r-pill: 999px;
+
+  --sombra-sm: 0 1px 2px rgba(34, 37, 111, 0.06), 0 1px 1px rgba(34, 37, 111, 0.04);
+  --sombra-md: 0 4px 12px rgba(34, 37, 111, 0.08), 0 2px 4px rgba(34, 37, 111, 0.05);
+  --sombra-lg: 0 12px 32px rgba(34, 37, 111, 0.12), 0 4px 8px rgba(34, 37, 111, 0.06);
+
+  /* ---- Movimento ---- */
+  --ease: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-out: cubic-bezier(0, 0, 0.2, 1);
+  --t-rapido: 120ms;
+  --t-base: 200ms;
+  --t-lento: 320ms;
+
+  /* ---- Cabeçalho ---- */
+  --header-h: 72px;
+}
+
+/* Abaixo de 1200px o menu vira hambúrguer (ver layout.css) */
+@media (max-width: 1199px) {
+  :root { --header-h: 64px; }
+}
